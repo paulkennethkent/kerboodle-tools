@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Kerboodle Support</title>
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- <link href="/components/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+    <link href="/components/css/custom.css" rel="stylesheet" media="screen">
+    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
+    <script src="/components/js/bootstrap.js"></script>
+    <script src="/components/js/DetLibs.js"></script>
+  </head>
+
+  <body id="system">
+    <!-- topBanner -->
+    <nav class="navbar navbar-static shadow">
+      <div class="navbarlogo">
+        <a href="index.html">
+          <div class="logoSvg"><img alt="Kerboodle Logo" src="img/kerboodletools-logo.svg"></div>
+        </a>
+        <!-- <div class="navbar-pattern pull-right"><img alt="Tools logo" class="centered hidden-xs" src="img/tools-icon.svg"></div> -->
+        <ul class="nav nav-pills ">
+          <li role="presentation"> <a href="index.html">Kerboodle Support Home</a> </li>
+          <li role="presentation"> <a href="#">Student Slips</a> </li>
+          <li role="presentation"> <a href="parent.html">Parent Letter</a> </li>
+          <li role="presentation"> <a href="system.html">System Checker</a> </li>
+          <li role="presentation"> <a href="#">CSV Checker</a> </li>
+        </ul>
+    </nav>
+    </div>
+    <!-- /# topBanner -->
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="page">
+          <h1>System Requirements Check</h1>
+          <p>This check will ensure that you have all the neccessary tools and settings to access the Kerboodle website. If you run into any problems then please do <a href="" onclick="sendMail(); return false">send us your results</a> and we will get back
+            to you with information on what to do next. You can also visit our <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/" target="_blank">support website</a> for further information and help guides. </p>
+          <p>If you would like to know the devices and softwares we do support then please take a look at Kerboodle <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/system-requirements.pdf" target="_blank">
+      system requirements.</a> </p>
+          <h4>Your details</h4>
+          <table class="table table-condensed">
+            <tbody>
+              <tr class="alert alert-warning" id="b1">
+                <td> <strong>Browser:</strong> </td>
+                <td id="b2">Needs javascript enabled to detect</td>
+                <td id="b3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="os1">
+                <td> <strong>Operating System:</strong> </td>
+                <td id="os2">Needs javascript enabled to detect</td>
+                <td id="os3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="j1">
+                <td> <strong>Javascript:</strong> </td>
+                <td id="j2"> <strong>
+            For full functionality of this site it is necessary to enable JavaScript.
+            <br>
+            Here are the
+            <a href="http://www.enable-javascript.com/" target="_blank">
+              instructions how to enable JavaScript in your web browser</strong> </a>. </td>
+                <td id="j3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="c1">
+                <td> <strong>Cookies:</strong> </td>
+                <td id="c2">Needs javascript enabled to detect</td>
+                <td id="c3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="f1">
+                <td> <strong>Adobe Flash Player:</strong> </td>
+                <td id="f2">Needs javascript enabled to detect</td>
+                <td id="f3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="a1">
+                <td> <strong>Adobe Acrobat Reader:</strong> </td>
+                <td id="a2">Needs javascript enabled to detect</td>
+                <td id="a3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="s1">
+                <td> <strong>Screen Resolution:</strong> </td>
+                <td id="s2">Needs javascript enabled to detect</td>
+                <td id="s3"> <i class="icon-remove"></i> </td>
+              </tr>
+              <tr class="alert alert-warning" id="bw1">
+                <td> <strong>Browser Window Size:</strong> </td>
+                <td id="bw2">Needs javascript enabled to detect</td>
+                <td id="bw3"> <i class="icon-remove"></i> </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="pull-right"> <a href="" onclick="sendMail(); return false">Send us these details
+    </a> </div>
+          <h4>Result</h4>
+          <div class="alert alert-warning" id="result"> <strong>Warning</strong> - Kerboodle must have javascript enabled to work</div>
+          <div class="row-fluid">
+            <h4>Support</h4>
+            <p>If you are having any issues using Kerboodle then please <a href="" onclick="sendMail(); return false">send us your results</a> with as much detail as possible. If you are able to take screenshots of the issue and attach it to the email, then
+              this will help us to resolve the issue faster. If you have already purchased Kerboodle, then please make sure you provide your school name and your institution code so that we can check your account details.</p>
+            <p>If you would like more further support information on Kerboodle then please visit our <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/">support website.
+      </a> </p>
+          </div>
+        </div>
+        <script type="text/javascript">
+          //********************javascript detect**********************
+          document.getElementById('j2').innerHTML = '<em>Enabled</em>';
+          document.getElementById('j1').className = 'alert alert-success';
+          document.getElementById('j3').innerHTML = '<i class="icon-ok"></i>'
+          document.getElementById('result').innerHTML = 'Don’t worry, you can still use Kerboodle.. ';
+          // **************initial borwser detect (refinement below) ****************
+          var browser_info = new browser_info();
+          var browser = browser_info.browser;
+          var browser_version = browser_info.browser_version;
+          //*********************operating system detect******************
+          var OS_info = new OS_info();
+          var OS = OS_info.OS;
+          var OS_version = OS_info.OS_version;
+          var TextOut;
+          var MailOS;
+          var OSOK = false;
+          switch (OS)
+          {
+            case 'WinXP':
+            case 'WinVista':
+            case 'Windows 7':
+            case 'Windows 8':
+            case 'Windows 10':
+              TextOut = "<em>" + OS + "</em>";
+              MailOS = OS;
+              OSOK = true;
+              break;
+            case 'MacOS':
+              if (OS_version == "Unknown")
+              {
+                TextOut = "Mac OS " + OS_version;
+                MailOS = "Mac OS " + ua;
+              }
+              else
+              {
+                TextOut = "<em>" + "Mac OS " + OS_version + "</em>";
+                MailOS = "Mac OS " + OS_version;
+                OSOK = true;
+              }
+              break;
+            case 'iPad':
+            case 'iPhone':
+              var testver = parseFloat(OS_version);
+              if (testver >= 6.1)
+              {
+                TextOut = "<em>" + OS + " " + OS_version + "</em>";
+                OSOK = true;
+              }
+              else
+              {
+                TextOut = OS + " " + OS_version;
+              }
+              MailOS = OS + " " + OS_version;
+              break;
+            case 'Android':
+              var testver = parseFloat(OS_version);
+              if (testver >= 4.1)
+              {
+                TextOut = "<em>" + OS + " " + OS_version + "</em>";
+                OSOK = true;
+              }
+              else
+              {
+                TextOut = OS + " " + OS_version;
+              }
+              MailOS = OS + " " + OS_version;
+              break;
+            default:
+              MailOS = ua;
+          }
+          document.getElementById('os2').innerHTML = TextOut;
+          var Totres = 1;
+          if (OSOK)
+          {
+            //Totres = 2;
+            document.getElementById('os1').className = 'alert alert-success';
+            document.getElementById('os3').innerHTML = '<i class="icon-ok"></i>'
+          }
+          //************************Browser Detect section *********************
+          var BVerInt = parseInt(browser_version);
+          var text1 = browser + " " + browser_version;
+          var Brout = text1;
+          var OKtest = false;
+          switch (browser)
+          {
+            case "Edge":
+              text1 = "Microsoft Edge";
+              Brout = text1;
+              break;
+            case "Netscape":
+              text1 = "Internet Explorer 11";
+              Brout = text1;
+              break;
+            case "MSIE":
+              text1 = "Internet Explorer " + browser_version + " please upgrade your browser";
+              Brout = "Internet Explorer " + browser_version;
+              Totres = Totres + 20;
+              if (BVerInt >= 9)
+              {
+                text1 = "<em>" + "Internet Explorer " + browser_version + "</em>";
+                Totres = Totres - 20;
+                OKtest = true;
+              }
+              break;
+            case "Firefox":
+              if (BVerInt >= 8)
+              {
+                text1 = "<em>" + browser + " " + browser_version + "</em>";
+                OKtest = true;
+              }
+              break;
+            case "Chrome":
+            case "Chrome For iPad ":
+              if (BVerInt >= 15)
+              {
+                text1 = "<em>" + browser + " " + browser_version + "</em>";
+                OKtest = true;
+              }
+              break;
+            case "Safari":
+              if (OS == 'Android')
+              {
+                text1 = "Android Browser";
+                Brout = text1;
+              }
+              else
+              {
+                if (BVerInt >= 5)
+                {
+                  text1 = "<em>" + browser + " " + browser_version + "</em>";
+                  OKtest = true;
+                }
+                //pick up version number, from after /version
+                if (BVerInt >= 9)
+                {
+                  text1 = "<em>" + browser + " 7</em>";
+                  Brout = text1 + " 7";
+                  OKtest = true;
+                }
+              }
+              break;
+          }
+          document.getElementById('b2').innerHTML = text1;
+          if (OKtest)
+          {
+            document.getElementById('b1').className = 'alert alert-success';
+            document.getElementById('b3').innerHTML = '<i class="icon-ok"></i>'
+          }
+          else
+          {
+            Totres = Totres + 20;
+          }
+          //*******************Cookie detect section*********************
+          var areCookiesEnabled = new areCookiesEnabled();
+          var CookieOn = areCookiesEnabled.CookieOn;
+          if (CookieOn)
+          {
+            var CookiesOn = "Enabled";
+            document.getElementById('c2').innerHTML = "<em>Enabled</em>";
+            document.getElementById('c1').className = 'alert alert-success';
+            document.getElementById('c3').innerHTML = '<i class="icon-ok"></i>'
+          }
+          else
+          {
+            var CookiesOn = "Not enabled";
+            Totres = Totres + 20;
+            document.getElementById('c2').innerHTML = "Disabled <a href='http://www.whatarecookies.com/enable.asp'> How to enable cookies</a>"
+          }
+          //******Flash detect section ****************
+          var FlashOK = false;
+          var FlashVer = "0";
+          var txt = "Flash is not installed, please <a href='http://helpx.adobe.com/flash-player.html'> click here to install it</a>";
+          var playerVersion = swfobject.getFlashPlayerVersion(); // returns a JavaScript object
+          var majorVersion = playerVersion.major;
+          if (majorVersion !== undefined)
+          {
+            if (majorVersion == 0)
+            {
+              // ie11 & ipad safari return 0
+              if (OS == ("iPad" || "iPhone"))
+              {
+                // its an ipad - it will never run flash
+                document.getElementById('f2').innerHTML = "Unfortunately Apple devices do not support Adobe Flash, but don't worry this will only affect a small number of activities";
+                document.getElementById('result').innerHTML = '<strong>Congratulations</strong> your device is currently supported!';
+                document.getElementById('result').className = 'alert alert-success';
+              }
+              else
+              {
+                // its not really working
+                document.getElementById('f2').innerHTML = txt;
+                Totres = Totres + 20;
+              }
+            }
+            else
+            {
+              //it returns a nice normal version number
+              FlashOK = true;
+              FlashVer = playerVersion.major;
+              txt = "<em>Flash " + playerVersion.major + "</em>";
+              document.getElementById('f2').innerHTML = txt;
+              document.getElementById('f1').className = 'alert alert-success';
+              document.getElementById('f3').innerHTML = '<i class="icon-ok"></i>';
+            }
+          }
+          else
+          {
+            //document.writeln(txt)
+            document.getElementById('f2').innerHTML = txt;
+          }
+          // **************acrobat detect section ************
+          // ways of detecting reader:
+          // 1. ActiveXObject(AcroPDF.PDF) or ActiveXObject(PDF.PdfCtrl) return true
+          // 2. navigator.plugins array has an entry . name of[Adobe Acrobat or Chrome PDF Viewer
+          //        or WebKit built-in PDF] if you cycle through all the keys
+          var getAcrobatInfo = function()
+          {
+            var getBrowserName = function()
+            {
+              // this part gets the browser name
+              return this.name = this.name || function()
+              {
+                var userAgent = navigator ? navigator.userAgent.toLowerCase() : "other";
+                if (userAgent.indexOf("chrome") > -1) return "chrome";
+                else if (userAgent.indexOf("safari") > -1) return "safari";
+                else if (userAgent.indexOf("msie") > -1) return "ie";
+                else if (userAgent.indexOf("netscape") > -1) return "ie";
+                else if (userAgent.indexOf("trident") > -1) return "ie";
+                else if (userAgent.indexOf("firefox") > -1) return "firefox";
+                return userAgent;
+              }();
+            };
+            //  ********** 3 root functions
+            var getActiveXObject = function(name)
+            {
+              try
+              {
+                return new ActiveXObject(name);
+              }
+              catch (e)
+              {}
+            };
+            var getNavigatorPlugin = function(name)
+            {
+              for (key in navigator.plugins)
+              {
+                var plugin = navigator.plugins[key];
+                if (plugin.name == name) return plugin;
+              }
+            };
+            var getPDFPlugin = function()
+            {
+              return this.plugin = this.plugin || function()
+              {
+                // **************** end of 3 root fuctions
+                if (getBrowserName() == 'ie')
+                {
+                  // for ie plug-ins
+                  return getActiveXObject('AcroPDF.PDF') || getActiveXObject('PDF.PdfCtrl') || getActiveXObject('Adobe PDF Reader');
+                }
+                else
+                {
+                  //for other browser plug-ins
+                  return getNavigatorPlugin('Adobe Acrobat') || getNavigatorPlugin('Chrome PDF Viewer') || getNavigatorPlugin('WebKit built-in PDF');
+                }
+              }();
+            };
+            var isAcrobatInstalled = function()
+            {
+              return !!getPDFPlugin();
+            };
+            var getAcrobatVersion = function()
+            {
+              try
+              {
+                var plugin = getPDFPlugin();
+                if (getBrowserName() == 'ie')
+                {
+                  var versions = plugin.GetVersions().split(',');
+                  var latest = versions[0].split('=');
+                  return parseFloat(latest[1]);
+                }
+                if (plugin.version) return parseInt(plugin.version);
+                return plugin.name
+              }
+              catch (e)
+              {
+                return null;
+              }
+            }
+            return {
+              browser: getBrowserName(),
+              acrobat: isAcrobatInstalled() ? 'Acrobat ' : false,
+              acrobatVersion: getAcrobatVersion()
+            };
+          };
+          var info = getAcrobatInfo();
+          if (info.acrobat == false)
+          {
+            if (OS == ("iPad" || "iPhone"))
+            {
+              document.getElementById('a2').innerHTML = text1 + " has a built in pdf reader";
+              document.getElementById('a1').className = 'alert alert-success';
+              document.getElementById('a3').innerHTML = '<i class="icon-ok"></i>';
+            }
+            else
+            {
+              var OutString;
+              for (key in navigator.plugins)
+              {
+                var plugin = navigator.plugins[key];
+                OutString += plugin.name + ":";
+              }
+              document.getElementById('a2').innerHTML = "Reader not Installed <a href='http://get.adobe.com/uk/reader/'>Click here to install it</a> ";
+            }
+          }
+          else
+          {
+            document.getElementById('a2').innerHTML = "<em>" + info.acrobat + info.acrobatVersion + "</em>";
+            //document.writeln("<em>" + info.acrobat + info.acrobatVersion + "</em>");
+            document.getElementById('a1').className = 'alert alert-success';
+            document.getElementById('a3').innerHTML = '<i class="icon-ok"></i>';
+          }
+          // ******************Screen size detect section ***************
+          var txt1;
+          var TextOut5 = screen.width + 'x' + screen.height;
+          if ((screen.width >= 1024) && (screen.height >= 768))
+          {
+            Totres++;
+            txt1 = "<em>" + screen.width + 'x' + screen.height + "</em>";
+            document.getElementById('s1').className = 'alert alert-success';
+            document.getElementById('s3').innerHTML = '<i class="icon-ok"></i>'
+          }
+          else
+          {
+            if ((screen.width >= 786) && (screen.height >= 1024))
+            {
+              Totres++;
+              txt1 = "<em>" + screen.width + 'x' + screen.height + "</em>";
+              document.getElementById('s1').className = 'alert alert-success';
+              document.getElementById('s3').innerHTML = '<i class="icon-ok"></i>';
+            }
+            else
+            {
+              if (OS == ("iPad" || "iPhone"))
+              {
+                txt1 = "<em>" + screen.width + 'x' + screen.height + "</em>";
+                document.getElementById('s1').className = 'alert alert-success';
+                document.getElementById('s3').innerHTML = '<i class="icon-ok"></i>';
+              }
+              else
+              {
+                txt1 = screen.width + 'x' + screen.height;
+              }
+            }
+          }
+          document.getElementById('s2').innerHTML = txt1;
+          //********************browser window size detect************************
+          document.getElementById('bw1').className = 'alert alert-success';
+          document.getElementById('bw2').innerHTML = window.innerWidth + 'x' + window.innerHeight;
+          //document.write(window.innerWidth + 'x' + window.innerHeight );
+          document.getElementById('bw3').innerHTML = '<i class="icon-ok"></i>';
+          //*********************email compose section*****************************
+          //
+          function sendMail()
+          {
+            var MessageBody = "  Please fill in your name here:";
+            MessageBody = MessageBody + " %0d%0A   and your school:";
+            MessageBody = MessageBody + " %0d%0A   ***********************************";
+            MessageBody = MessageBody + " %0d%0A   * JavaScript: Enabled";
+            MessageBody = MessageBody + " %0d%0A   * Operating System: " + MailOS;
+            MessageBody = MessageBody + " %0d%0A   * Browser: " + Brout;
+            MessageBody = MessageBody + " %0d%0A   * Cookies: " + CookiesOn;
+            MessageBody = MessageBody + " %0d%0A   * Acrobat: " + info.acrobat + " " + info.acrobatVersion;
+            if (FlashOK)
+            {
+              var Text4 = FlashVer
+            }
+            else
+            {
+              var Text4 = "Not Installed"
+            };
+            MessageBody = MessageBody + " %0d%0A   * Flash: " + Text4;
+            MessageBody = MessageBody + " %0d%0A   * Screen Size: " + TextOut5;
+            MessageBody = MessageBody + " %0d%0A   * Browser Width: " + window.innerWidth + 'x' + window.innerHeight;
+            MessageBody = MessageBody + " %0d%0A   ***********************************";
+            MessageBody = MessageBody + " %0d%0A   Please add any other details:";
+            //MessageBody = MessageBody + "</pre>";
+            var link = "mailto:edtechsupport@oup.com" + "?cc=paul.kent@oup.com" + "&subject=" + "Computer Configuration" + "&body= " + MessageBody;
+            window.location.href = link;
+          }
+          //*************** return resutl section **************
+          if (Totres > 1)
+          {
+            if (Totres > 20)
+            {
+              document.getElementById('result').innerHTML = '<strong>Warning</strong> - Please address the problems above';
+              document.getElementById('result').className = 'alert alert-warning';
+            }
+            else
+            {
+              document.getElementById('result').innerHTML = '<strong>Congratulations</strong> your device is currently supported!';
+              document.getElementById('result').className = 'alert alert-success';
+            }
+          }
+        </script>
+      </div>
+      <!-- /#col-md-9 col-md-offset-1 -->
+    </div>
+    <!-- /#row -->
+    <!-- footer -->
+    <footer class="footer shadow">
+      <div class="container">
+        <p class="text-muted">
+          <p>&copy; 2015 Oxford University Press. All rights reserved &#124; <a href='https://global.oup.com/education/content/secondary/online-products/privacy/;jsessionid=AEF13606D71BEDF62F97C1F80A094521?region=uk' target="_blank">Privacy Policy</a> &#124;
+            <a href='https://global.oup.com/education/content/secondary/online-products/legal/?region=uk' target="_blank">Legal Notice</a> &#124; <a href='https://global.oup.com/education/help/technical-support/helpdesk-platform?region=uk' target="_blank">Contact Us</a>            &#124; <a href='http://www.kerboodle.com/users/login' target="_blank">Kerboodle.com</a> &#124; <a href='https://twitter.com/kerboodle' target="_blank">@Kerboodle</a> &#124; <a href='https://www.youtube.com/playlist?list=PLW-Dpen99Aj6aBAFMSBTcERCu3JjkRovu'
+            target="_blank">YouTube</a> </p>
+        </p>
+      </div>
+    </footer>
+    <!-- /#footer -->
+    <!-- jQuery -->
+  </body>
+
+</html>

@@ -1,0 +1,29 @@
+.nav-tabs > li, .nav-pills > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+     zoom:1; /* hasLayout ie7 trigger */
+}
+
+.nav-tabs, .nav-pills {
+    text-align:center;
+    a {
+      color: $darkGrey;
+    }
+
+  }
+
+.nav-pills > li.active > a  {
+      background-color: $green;
+  }
+
+.alert, .alert-success {
+  text-align: center;
+}
+
+.logoSvg {
+  width : 50%;
+  img {
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,131 @@
+//content
+.menu-center {
+	width:100%;
+	margin: 0 0 0 30px;
+	padding: 20px;
+}
+
+
+.media-body {
+width: 100%;
+vertical-align: middle;
+
+}
+
+.media-body {
+	a:link {
+	color: $black;
+	}
+	a:visited {
+	color: $black;
+	}
+	a:hover {
+	color: $black;
+	}
+
+	p {
+		a:link {
+		color: $green;
+		}
+		a:visited {
+		color: $green;
+		}
+		a:hover {
+		color: $green;
+		}
+	}
+}
+
+.media-body h3:link {
+	color: $black;
+}
+
+.media-body .media-right   {
+  height: 50px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+//#content
+
+// DoughnutShape
+.donut {
+    box-sizing: content-box;
+    border-radius: 50px;
+    height:50px;
+	width:50px;
+}
+
+.donut-black {
+	@extend .donut;
+	border: 25px solid $black;
+}
+
+.donut-blue {
+	@extend .donut;
+	border: 25px solid $blue;
+}
+
+.donut-pink {
+	@extend .donut;
+	border: 25px solid $pink;
+}
+
+.donut-green {
+	@extend .donut;
+	border: 25px solid $green;
+}
+
+.donut-yellow {
+	@extend .donut;
+	border: 25px solid $yellow;
+}
+
+.month
+{
+	display: block;
+	text-align: center;
+	font-size: 0.6em;
+}
+
+.day
+{
+	display: block;
+	text-align: center;
+	font-size: 1em;
+}
+//#DoughnutShape
+
+
+
+//right hand nav
+.rightNav {
+	position: fixed;
+}
+
+//date
+
+// topnavlist
+#topnavlist {
+	background: #EEE;
+	li a {
+		color: #666;
+		font-weight: bold;
+ 		}
+}
+
+// search results
+
+.searchResults {
+		list-style-type: none;
+
+		p {
+			padding-bottom: 10px;
+			width: 80%;
+		}
+}
+
+
+.text-success {
+	color: $green;
+}
