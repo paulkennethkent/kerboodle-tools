@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Kerboodle Support</title>
+    <link href="css/style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- <link href="/components/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
+    <link href="/components/css/custom.css" rel="stylesheet" media="screen">
+    <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
+    <script src="/components/js/bootstrap.js"></script>
+    <script src="/components/js/DetLibs.js"></script>
+  </head>
+
+  <body id="parent">
+    <!-- topBanner -->
+    <nav class="navbar navbar-static shadow">
+      <div class="navbarlogo">
+        <a href="index.html">
+          <div class="logoSvg"><img alt="Kerboodle Logo" src="img/kerboodletools-logo.svg"></div>
+        </a>
+        <!-- <div class="navbar-pattern pull-right"><img alt="Tools logo" class="centered hidden-xs" src="img/tools-icon.svg"></div> -->
+        <ul class="nav nav-pills ">
+          <li role="presentation"> <a href="index.html">Kerboodle Support Home</a> </li>
+          <li role="presentation"> <a href="index.html">System Checker</a> </li>
+          <li role="presentation"> <a href="slips.html">Student Slips</a> </li>
+          <li role="presentation"> <a href="parent.html">Parent Letter</a> </li>
+          <li role="presentation"> <a href="csv.html">CSV Checker</a> </li>
+        </ul>
+    </nav>
+    </div>
+    <!-- /# topBanner -->
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1">
+        <div class="page">
+          <h1>CSV Checker</h1>
+          <p>Please follow the steps below to validate your CSV file.</p>
+          <h4 id="headings">Step 1:</h4>
+          <p>If you haven't got a CSV file, please create your CSV file using our <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a> </p>
+          <h4 id="headings">Step 2:</h4>
+          <div id="alert"></div>
+          <div id="holder"></div>
+          <div id="buttons"></div>
+          <script>
+            // the 3 divs abover are for:
+            // 1. alert - returns error messages
+            // 2. holder -  holds the dnd zone
+            // 3. buttons - hold the manual upload button (for IE) before file process
+            //            - and the reload button after
+            // *******  program spec  ******
+            // 1 SET UP LISTENERS AND EVENT HANDLERS (AT END)
+            // 2 DETECT BROWSER TYPE AND OUTPUT PAGE ACCORDINGLY (NO DND FOR IE)
+            // 3 UPON DND OR FILE SELECT
+            // 4 CHECK FOR VALID FILE LAYOUT (IS A CSV FILE)
+            //•	Check to see if it’s an actual CSV file.
+            //  •	The column headings in line 1 must be correct
+            //		Surname, First name,Admission Number, Year,Form (optional)
+            //  •	The Admission Number must be unique within the sheet
+            //  •	Information in the columns cannot exceed:
+            //o	For first name - 25 characters
+            //o	For last name - 40 characters
+            //o	For admission Number - 50 characters
+            //o	For year - 75 characters
+            //o	For form  - 75 characters
+            // •	All icolumns must be filled out, apart from the optional Form column
+            // what to doa bout false lines at teh bottom - onest hat excel registeres as lines but are blank - they need to be screened out.
+            // •	utf->excel corrupted extended (characters) rejected
+            // 5 OUTPUT SNAG LIST
+            // *********************** BROWSER DETECT SECTION - START *********************
+            var browser_info = new browser_info();
+            var browser = browser_info.browser;
+            var browser_version = browser_info.browser_version;
+            var isIE = false;
+            var TestFunc = [];
+            switch (browser)
+            {
+              case 'MSIE':
+                if (browser_version < 10)
+                {
+                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                  document.getElementById('alert').innerHTML = "You are running Internet Explorer 9 or below. Please use this utility in a different browser.";
+                }
+                else
+                {
+                  document.getElementById('buttons').innerHTML = "You are running Internet Explorer 10. Please upload the file using the button provided<br><input type='file' onChange='getFileContents(this)'>";
+                }
+                isIE = true;
+                break;
+              case 'Netscape':
+                document.getElementById('buttons').innerHTML = "You are running Internt Explorer 11. Please upload the file using the button provided<br><input type='file' onChange='getFileContents(this)'>";
+                isIE = true;
+                break;
+              default:
+                document.getElementById('holder').innerHTML = "<div id='drop_zone'>Please Drag and Drop the .csv file here</div>";
+                document.getElementById('buttons').innerHTML = "<input type='file' id='Loadfiles' name='files[]' multiple /><br>";
+            }
+            // *********************** BROWSER DETECT SECTION - END *********************
+            // *********************** MAIN GUTS - START ****************************************
+            function Testfunc(InStr, Min, Max)
+            {
+              var OutStr = "";
+              var testStr;
+              var count;
+              //var pattern1 = /[a-zA-Z0-9\s_.()/\\'\-]/;
+              //var pattern  =/^[a-zA-Z0-9\s_(.)/\\'\-]*$/;
+              var pattern1 = /[a-zA-Z0-9\s_.(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ)/\\'\-]/;
+              var pattern = /^[a-zA-Z0-9\s_(.àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ)/\\'\-]*$/;
+              // check if string exceeds allowed length
+              count = InStr.length;
+              if (count < Min)
+              {
+                if (count == 0)
+                {
+                  OutStr = "Field is blank!";
+                }
+                else
+                {
+                  OutStr = "<font color='black'>" + count + " chars</font><br>";
+                }
+              }
+              // check if string is less than 1 (if min is less than 1)
+              if (count > Max)
+              {
+                OutStr = "<font color='black'>" + count + " chars</font><br>";
+              }
+              // find all chars that fail check
+              if (!pattern.test(InStr))
+              {
+                //OutStr = " letters in black fail :"
+                for (var i = 0; i < InStr.length; i++)
+                {
+                  if (pattern1.test(InStr.charAt(i)))
+                  {
+                    OutStr += InStr.charAt(i);
+                  }
+                  else
+                  {
+                    OutStr += "<font color='black'>" + InStr.charAt(i) + " </font>";
+                  }
+                }
+              }
+              return OutStr;
+            }
+
+            function ProcData(files)
+            { // start of procdata
+              var Output = "";
+              var LineOut = "";
+              var ErrorBool = true;
+              var LineBool = false;
+              var ColNames;
+              var ColCount;
+              for (var i = 0, f; f = files[i]; i++)
+              { // loop 1
+                if (f.name.match('\.csv'))
+                { // if 1
+                  var Filename = decodeURI(escape(f.name));
+                  var reader = new FileReader();
+                  // when the file loads, the function beneath is run
+                  reader.onload = (function(theFile)
+                  { // function 2
+                    // this function is executed before it is returned by the last (f)
+                    return function(e)
+                    { //function 3
+                      var contents = e.target.result;
+                      var FileLines = contents.split("\n");
+                      var LineCount = FileLines.length;
+                      var pattern25 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,25})$/;
+                      var pattern40 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,40})$/;
+                      var pattern50 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,50})$/;
+                      var pattern75 = /^([a-zA-Z0-9\s_(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ.)/\\'\-]{1,75})$/;
+                      var pattern75a = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{0,75})$/;
+                      //var pattern25  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,25})$/;
+                      //var pattern40  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,40})$/;
+                      //var pattern50  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,50})$/;
+                      //var pattern75  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,75})$/;
+                      //var pattern75a =/^([a-zA-Z0-9\s_(.)/\\'\-]{0,75})$/;
+                      var TestString;
+                      var TestCatch;
+                      var Numhash = {};
+                      for (var j = 0; j < LineCount; j++)
+                      { // start of loop thorugh lines
+                        // *********test column headings************
+                        TestString = FileLines[j].toString();
+                        TestString = TestString.replace(/(\r\n|\n|\r)/gm, "");
+                        ColNames = TestString.split(",");
+                        if (j == 0)
+                        { // start of header process
+                          ColCount = ColNames.length;
+                          if (ColCount != 5)
+                          { // start of column header check
+                            ErrorBool = false;
+                            LineBool = false;
+                            LineOut = "";
+                            Output += "File - has " + ColCount + " columns: should have 5!<br>";
+                          }
+                          Output += "<table border=1><tr><td>Line No.</td><td>Surname<br>Max Chars 40</td>";
+                          Output += "<td>First Name<br>Max Chars 25</td><td>Admission No.<br>Max Chars 50</td>"
+                          Output += "<td>Year<br>Max Chars 75</td><td>Form<br>Max Chars 75</td></tr>";
+                          if (ColNames[0] != "Surname")
+                          {
+                            LineBool = true;
+                            LineOut += "<td><b>Column heading is: " + ColNames[0] + "</b></td>";
+                            ErrorBool = false;
+                          }
+                          else
+                          {
+                            LineOut += "<td></td>";
+                          }
+                          if (ColNames[1] != "First name")
+                          {
+                            if (!LineBool)
+                            {
+                              LineBool = true;
+                            }
+                            LineOut += "<td><b>Column heading is: " + ColNames[1] + "</b></td>";
+                            ErrorBool = false;
+                          }
+                          else
+                          {
+                            LineOut += "<td></td>";
+                          }
+                          if (ColNames[2] != "Admission Number")
+                          {
+                            if (!LineBool)
+                            {
+                              LineBool = true;
+                            }
+                            LineOut += "<td><b>Column heading is: " + ColNames[2] + "</b></td>";
+                            ErrorBool = false;
+                          }
+                          else
+                          {
+                            LineOut += "<td></td>";
+                          }
+                          if (ColNames[3] != "Year")
+                          {
+                            if (!LineBool)
+                            {
+                              LineBool = true;
+                            }
+                            LineOut += "<td><b>Column heading is: " + ColNames[3] + "</b></td>";
+                            ErrorBool = false;
+                          }
+                          else
+                          {
+                            LineOut += "<td></td>";
+                          }
+                          if (ColNames[4] != "Form (optional)") // cant string match end of line
+                          {
+                            if (!LineBool)
+                            {
+                              LineBool = true;
+                            }
+                            LineOut += "<td><b>Column heading is: " + ColNames[4] + "</b></td>";
+                            ErrorBool = false;
+                          }
+                          else
+                          {
+                            LineOut += "<td></td>";
+                          }
+                          if (LineBool)
+                          {
+                            Output += "<tr><td> 1 </td>" + LineOut + "</tr>";
+                          }
+                        }
+                        else
+                        { // else of header process
+                          // for all non-header lines
+                          if ((j + 1 == LineCount) && (ColNames[0].length < 1))
+                          {
+                            // theres often a phantom newline at the end of the file
+                          }
+                          else
+                          {
+                            LineOut = "";
+                            LineBool = false;
+                            if (pattern40.test(ColNames[0]))
+                            {
+                              LineOut += "<td></td>";
+                              //Output += "Line " + (j+1) + " - column 1: " + ColNames[0] + " passes<br>";
+                            }
+                            else
+                            {
+                              TestCatch = Testfunc(ColNames[0], 1, 40);
+                              LineOut += "<td><b>" + TestCatch + "</b></td>";
+                              LineBool = true;
+                              //Output += "Line " + (j+1) + " - column 1: " + TestCatch + "<br>";
+                              ErrorBool = false;
+                            }
+                            if (pattern25.test(ColNames[1]))
+                            {
+                              LineOut += "<td></td>";
+                              //Output += "Line " + (j+1) + " - column 2: "  + ColNames[1] + " passes<br>";
+                            }
+                            else
+                            {
+                              TestCatch = Testfunc(ColNames[1], 1, 25);
+                              LineOut += "<td><b>" + TestCatch + "</b></td>";
+                              LineBool = true;
+                              //Output += "Line " + (j+1) + " - column 2: " + TestCatch + "<br>";
+                              ErrorBool = false;
+                            }
+                            if (pattern50.test(ColNames[2]))
+                            {
+                              // see if its already in the hastable
+                              if (Numhash[ColNames[2]])
+                              {
+                                LineOut += "<td><b>Duplicate Admin Number:" + ColNames[2] + "</b></td>";
+                                LineBool = true;
+                                ErrorBool = false;
+                                // if so thats an error
+                              }
+                              else
+                              {
+                                // if not put it in
+                                Numhash[ColNames[2]] = true;
+                                LineOut += "<td></td>";
+                              }
+                              //Output += "Line " + (j+1) + " - column 3: "  + ColNames[2] + " passes<br>";
+                            }
+                            else
+                            {
+                              TestCatch = Testfunc(ColNames[2], 1, 50);
+                              LineOut += "<td><b>" + TestCatch + "</b></td>";
+                              LineBool = true;
+                              //Output += "Line " + (j+1) + " - column 3: " + TestCatch +"<br>";
+                              ErrorBool = false;
+                            }
+                            if (pattern75.test(ColNames[3]))
+                            {
+                              LineOut += "<td></td>";
+                              //Output += "Line " + (j+1) + " - column 4: "  + ColNames[3] + " passes<br>";
+                            }
+                            else
+                            {
+                              TestCatch = Testfunc(ColNames[3], 1, 75);
+                              LineOut += "<td><b>" + TestCatch + "</b></td>";
+                              LineBool = true;
+                              //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
+                              ErrorBool = false;
+                            }
+                            if (pattern75a.test(ColNames[4]))
+                            {
+                              LineOut += "<td></td>";
+                              //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
+                            }
+                            else
+                            {
+                              TestCatch = Testfunc(ColNames[4], 0, 75);
+                              LineOut += "<td><b>" + TestCatch + "</b></td>";
+                              LineBool = true;
+                              //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
+                              ErrorBool = false;
+                            }
+                            if (LineBool)
+                            {
+                              Output += "<tr><td>" + (j + 1) + "</td>" + LineOut + "</tr>";
+                            }
+                          }
+                        } // end of header process (lines = 0)
+                      } // end of loop thorugh lines
+                      if (ErrorBool)
+                      { // if error
+                        //***Success response***
+                        $("#drop-zone").remove();
+                        document.getElementById('holder').innerHTML = "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
+                        $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button><br />');
+                        // var span = document.createElement('span');
+                        // span.innerHTML = '';
+                        // document.getElementById('results').insertBefore(span, null);
+                        //$("#results").html(span);
+                      }
+                      else
+                      { // else error
+                        //*****File contents validation failed*******
+                        $("#holder").remove();
+                        $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
+                        var alert = '<strong>Error: </strong><br>' + Output + "</table>";
+                        $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                        $("#alert").html(alert); // output the alert variable to the div
+                      } // end of error
+                    }; // close function 3
+                  })(f); // close function 2
+                  reader.readAsText(f, "Windows-1252");
+                  //reader.readAsText(f,'ISO-8859-1');
+                }
+                else
+                { // else of if 1
+                  // ******* File Type fails *******
+                  $("#holder").remove();
+                  $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Try another file</button>');
+                  var alert = '<strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file!!';
+                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                  $("#alert").html(alert); // output the alert variable to the div
+                } // close if 1
+              } // close loop 1
+              return output;
+            } // end of procdata
+            // *********************** MAIN GUTS - END ****************************************
+            // ********************************* EVENT HANDLERS START **************************
+            function handleDragOver(evt)
+            { // function 1 for drag and drop upload
+              evt.stopPropagation();
+              evt.preventDefault();
+              evt.dataTransfer.dropEffect = 'copy'; // Explic show this is a copy.
+            } // close function 4
+            function handleFileSelect(evt)
+            { // function for ubtton upload
+              evt.stopPropagation();
+              evt.preventDefault();
+              var files = evt.target.files || evt.dataTransfer.files;
+              oForm = document.forms[0];
+              var output = ProcData(files);
+              document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
+            }
+
+            function getFileContents(input)
+            { // function 2 for drag and drop upload
+              var file = input.files[0],
+                reader = new FileReader();
+              oForm = document.forms[0];
+              reader.onload = function(event)
+              {
+                var files = event.target.result;
+                var inArray = [file];
+                var output = ProcData(inArray, InstCode);
+                document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
+                //document.write(output.toString());
+                //processFileContents( files )
+              };
+              reader.readAsText(file);
+            }
+            // Setup the dnd listeners.
+            if (!isIE)
+            {
+              var dropZone = document.getElementById('drop_zone');
+              dropZone.addEventListener('dragover', handleDragOver, false);
+              dropZone.addEventListener('drop', handleFileSelect, false);
+              document.getElementById('Loadfiles').addEventListener('change', handleFileSelect, false);
+            }
+            //************************EVENT HANDLERS FOR DRAG & DROP -END ***********************
+          </script>
+        </div>
+        <!-- /#col-md-9 col-md-offset-1 -->
+      </div>
+      <!-- /#row -->
+    </div>
+    <!-- /#wrapper -->
+    <!-- footer -->
+    <footer class="footer shadow">
+      <div class="container">
+        <p class="text-muted">
+          <p>&copy; 2015 Oxford University Press. All rights reserved &#124; <a href='https://global.oup.com/education/content/secondary/online-products/privacy/;jsessionid=AEF13606D71BEDF62F97C1F80A094521?region=uk' target="_blank">Privacy Policy</a> &#124;
+            <a href='https://global.oup.com/education/content/secondary/online-products/legal/?region=uk' target="_blank">Legal Notice</a> &#124; <a href='https://global.oup.com/education/help/technical-support/helpdesk-platform?region=uk' target="_blank">Contact Us</a>            &#124; <a href='http://www.kerboodle.com/users/login' target="_blank">Kerboodle.com</a> &#124; <a href='https://twitter.com/kerboodle' target="_blank">@Kerboodle</a> &#124; <a href='https://www.youtube.com/playlist?list=PLW-Dpen99Aj6aBAFMSBTcERCu3JjkRovu'
+            target="_blank">YouTube</a> </p>
+        </p>
+      </div>
+    </footer>
+    <!-- /#footer -->
+    <!-- jQuery -->
+  </body>
+
+</html>
