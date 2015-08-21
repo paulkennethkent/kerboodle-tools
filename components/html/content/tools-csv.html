@@ -15,7 +15,6 @@
     // 2. holder -  holds the dnd zone
     // 3. buttons - hold the manual upload button (for IE) before file process
     //            - and the reload button after
-
     // *******  program spec  ******
     // 1 SET UP LISTENERS AND EVENT HANDLERS (AT END)
     // 2 DETECT BROWSER TYPE AND OUTPUT PAGE ACCORDINGLY (NO DND FOR IE)
@@ -35,7 +34,6 @@
     // what to doa bout false lines at teh bottom - onest hat excel registeres as lines but are blank - they need to be screened out.
     // •	utf->excel corrupted extended (characters) rejected
     // 5 OUTPUT SNAG LIST
-
     // *********************** BROWSER DETECT SECTION - START *********************
     var browser_info = new browser_info();
     var browser = browser_info.browser;
@@ -59,10 +57,8 @@
       default:
         document.getElementById('holder').innerHTML = "<div id='drop_zone'>Please Drag and Drop the .csv file here</div>";
         document.getElementById('buttons').innerHTML = "<input type='file' id='Loadfiles' name='files[]' multiple /><br>";
-
     }
     // *********************** BROWSER DETECT SECTION - END *********************
-
     // *********************** MAIN GUTS - START ****************************************
     function Testfunc(InStr, Min, Max) {
       var OutStr = "";
@@ -70,10 +66,8 @@
       var count;
       //var pattern1 = /[a-zA-Z0-9\s_.()/\\'\-]/;
       //var pattern  =/^[a-zA-Z0-9\s_(.)/\\'\-]*$/;
-
       var pattern1 = /[a-zA-Z0-9\s_.(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ)/\\'\-]/;
       var pattern = /^[a-zA-Z0-9\s_(.àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ)/\\'\-]*$/;
-
       // check if string exceeds allowed length
       count = InStr.length;
       if (count < Min) {
@@ -83,12 +77,10 @@
           OutStr = "<font color='black'>" + count + " chars</font><br>";
         }
       }
-
       // check if string is less than 1 (if min is less than 1)
       if (count > Max) {
         OutStr = "<font color='black'>" + count + " chars</font><br>";
       }
-
       // find all chars that fail check
       if (!pattern.test(InStr)) {
         //OutStr = " letters in black fail :"
@@ -97,24 +89,18 @@
             OutStr += InStr.charAt(i);
           } else {
             OutStr += "<font color='black'>" + InStr.charAt(i) + " </font>";
-
           }
         }
-
-
       }
-
       return OutStr;
     }
-
     function ProcData(files) { // start of procdata
       var Output = "";
       var LineOut = "";
-      var ErrorBool = true;
+      var HasErrorBool = false;
       var LineBool = false;
       var ColNames;
       var ColCount;
-
       for (var i = 0, f; f = files[i]; i++) { // loop 1
         if (f.name.match('\.csv')) { // if 1
           var Filename = decodeURI(escape(f.name));
@@ -122,30 +108,25 @@
           // when the file loads, the function beneath is run
           reader.onload = (function(theFile) { // function 2
             // this function is executed before it is returned by the last (f)
-
             return function(e) { //function 3
               var contents = e.target.result;
-              contents = contents.replace("\r","\n");
+              contents = contents.replace(/(\r\n|\n|\r)/gm, "\n");
               var FileLines = contents.split("\n");
               var LineCount = FileLines.length;
-
               var pattern25 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,25})$/;
               var pattern40 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,40})$/;
               var pattern50 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,50})$/;
               var pattern75 = /^([a-zA-Z0-9\s_(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ.)/\\'\-]{1,75})$/;
               var pattern75a = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{0,75})$/;
-
-
               //var pattern25  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,25})$/;
               //var pattern40  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,40})$/;
               //var pattern50  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,50})$/;
               //var pattern75  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,75})$/;
               //var pattern75a =/^([a-zA-Z0-9\s_(.)/\\'\-]{0,75})$/;
-
               var TestString;
               var TestCatch;
               var Numhash = {};
-              for (var j = 0; j < LineCount; j++) { // start of loop thorugh lines
+              for (var j = 0; j < LineCount ; j++) { // start of loop thorugh lines
                 // *********test column headings************
                 TestString = FileLines[j].toString();
                 TestString = TestString.replace(/(\r\n|\n|\r)/gm, "");
@@ -153,68 +134,61 @@
                 if (j == 0) { // start of header process
                   ColCount = ColNames.length;
                   if (ColCount != 5) { // start of column header check
-                    ErrorBool = false;
+                    HasErrorBool = true;
                     LineBool = false;
                     LineOut = "";
-                    Output += "File - has " + ColCount + " columns: should have 5!<br>";
+                    Output += "<div class='alert alert-error'>File - has " + ColCount + " columns: should have 5!<br></div>";
                   }
                   Output += "<table border=1><tr><td>Line No.</td><td>Surname<br>Max Chars 40</td>";
                   Output += "<td>First Name<br>Max Chars 25</td><td>Admission No.<br>Max Chars 50</td>"
                   Output += "<td>Year<br>Max Chars 75</td><td>Form<br>Max Chars 75</td></tr>";
-
                   if (ColNames[0] != "Surname") {
                     LineBool = true;
-                    LineOut += "<td><b>Column heading is: " + ColNames[0] + "</b></td>";
-                    ErrorBool = false;
+                    LineOut += "<td><div class='alert alert-error'>" + ColNames[0] + "</div></td>";
+                    HasErrorBool = true;
                   } else {
-                    LineOut += "<td></td>";
+                    LineOut += "<td>" + ColNames[0] + "</td>";
                   }
-
                   if (ColNames[1] != "First name") {
+                      HasErrorBool = true;
                     if (!LineBool) {
                       LineBool = true;
                     }
-                    LineOut += "<td><b>Column heading is: " + ColNames[1] + "</b></td>";
-                    ErrorBool = false;
+                    LineOut += "<td><div class='alert alert-error'>" + ColNames[1] + "</div></td>";
                   } else {
-                    LineOut += "<td></td>";
+                    LineOut += "<td>" + ColNames[1] + "</td>";
                   }
-
-
                   if (ColNames[2] != "Admission Number") {
+                      HasErrorBool = true;
                     if (!LineBool) {
                       LineBool = true;
                     }
-                    LineOut += "<td><b>Column heading is: " + ColNames[2] + "</b></td>";
-                    ErrorBool = false;
+                    LineOut += "<td><div class='alert alert-error'>" + ColNames[2] + "</div></td>";
                   } else {
-                    LineOut += "<td></td>";
+                    LineOut += "<td>" + ColNames[2] + "</td>";
                   }
-
                   if (ColNames[3] != "Year") {
+                      HasErrorBool = true;
                     if (!LineBool) {
                       LineBool = true;
                     }
-                    LineOut += "<td><b>Column heading is: " + ColNames[3] + "</b></td>";
-                    ErrorBool = false;
+                    LineOut += "<td><div class='alert alert-error'>" + ColNames[3] + "</div></td>";
                   } else {
-                    LineOut += "<td></td>";
+                    LineOut += "<td>" + ColNames[3] + "</td>";
                   }
-
-
                   if (ColNames[4] != "Form (optional)") // cant string match end of line
                   {
+                    HasErrorBool = true;
                     if (!LineBool) {
                       LineBool = true;
                     }
-                    LineOut += "<td><b>Column heading is: " + ColNames[4] + "</b></td>";
-                    ErrorBool = false;
+                    LineOut += "<td><div class='alert alert-error'>" + ColNames[4] + "</div></td>";
                   } else {
-                    LineOut += "<td></td>";
+                    LineOut += "<td>" + ColNames[4] + "</td>";
                   }
-                  if (LineBool) {
+                //  if (LineBool) {
                     Output += "<tr><td> 1 </td>" + LineOut + "</tr>";
-                  }
+                //  }
                 } else { // else of header process
                   // for all non-header lines
                   if ((j + 1 == LineCount) && (ColNames[0].length < 1)) {
@@ -223,100 +197,102 @@
                     LineOut = "";
                     LineBool = false;
                     if (pattern40.test(ColNames[0])) {
-                      LineOut += "<td></td>";
+                      LineOut += "<td>" + ColNames[0] + "</td>";
                       //Output += "Line " + (j+1) + " - column 1: " + ColNames[0] + " passes<br>";
                     } else {
                       TestCatch = Testfunc(ColNames[0], 1, 40);
-                      LineOut += "<td><b>" + TestCatch + "</b></td>";
+                      LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
                       LineBool = true;
                       //Output += "Line " + (j+1) + " - column 1: " + TestCatch + "<br>";
-                      ErrorBool = false;
+                        HasErrorBool = true;
                     }
-
                     if (pattern25.test(ColNames[1])) {
-                      LineOut += "<td></td>";
+                      LineOut += "<td>" + ColNames[1] + "</td>";
                       //Output += "Line " + (j+1) + " - column 2: "  + ColNames[1] + " passes<br>";
                     } else {
                       TestCatch = Testfunc(ColNames[1], 1, 25);
-                      LineOut += "<td><b>" + TestCatch + "</b></td>";
+                      LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
                       LineBool = true;
                       //Output += "Line " + (j+1) + " - column 2: " + TestCatch + "<br>";
-                      ErrorBool = false;
+                        HasErrorBool = true;
                     }
-
                     if (pattern50.test(ColNames[2])) {
-
                       // see if its already in the hastable
                       if (Numhash[ColNames[2]]) {
-                        LineOut += "<td><b>Duplicate Admin Number:" + ColNames[2] + "</b></td>";
+                        LineOut += "<td><div class='alert alert-error'>Duplicate Admin Number:" + ColNames[2] + "</div></td>";
                         LineBool = true;
-                        ErrorBool = false;
+                          HasErrorBool = true;
                         // if so thats an error
                       } else {
                         // if not put it in
                         Numhash[ColNames[2]] = true;
-                        LineOut += "<td></td>";
+                        LineOut += "<td>" + ColNames[2] + "</td>";
                       }
-
                       //Output += "Line " + (j+1) + " - column 3: "  + ColNames[2] + " passes<br>";
                     } else {
                       TestCatch = Testfunc(ColNames[2], 1, 50);
-                      LineOut += "<td><b>" + TestCatch + "</b></td>";
+                      LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
                       LineBool = true;
                       //Output += "Line " + (j+1) + " - column 3: " + TestCatch +"<br>";
-                      ErrorBool = false;
+                        HasErrorBool = true;
                     }
-
                     if (pattern75.test(ColNames[3])) {
-                      LineOut += "<td></td>";
+                      LineOut += "<td>" + ColNames[3] + "</td>";
                       //Output += "Line " + (j+1) + " - column 4: "  + ColNames[3] + " passes<br>";
                     } else {
                       TestCatch = Testfunc(ColNames[3], 1, 75);
-                      LineOut += "<td><b>" + TestCatch + "</b></td>";
+                      LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
                       LineBool = true;
                       //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
-                      ErrorBool = false;
+                        HasErrorBool = true;
                     }
-
                     if (pattern75a.test(ColNames[4])) {
-                      LineOut += "<td></td>";
+                      LineOut += "<td>" + ColNames[4] + "</td>";
                       //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
                     } else {
                       TestCatch = Testfunc(ColNames[4], 0, 75);
-                      LineOut += "<td><b>" + TestCatch + "</b></td>";
+                      LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
                       LineBool = true;
                       //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
-                      ErrorBool = false;
+                        HasErrorBool = true;
                     }
-                    if (LineBool) {
+                  //  if (LineBool) {
                       Output += "<tr><td>" + (j + 1) + "</td>" + LineOut + "</tr>";
-                    }
+                  //  }
                   }
                 } // end of header process (lines = 0)
               } // end of loop thorugh lines
-
-              if (ErrorBool) { // if error
+            //  if (ErrorBool) { // if error
                 //***Success response***
-                $("#drop-zone").remove();
-                document.getElementById('holder').innerHTML =
-                  "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
-                $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button><br />');
-
+                //$("#drop-zone").remove();
+              //  document.getElementById('holder').innerHTML =
+              //    "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
+              //    var alert = '<br>' + Output + "</table>";
+              //    $('#buttons').html(alert); // output the alert variable to the div
+            //     $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button><br />');
                 // var span = document.createElement('span');
                 // span.innerHTML = '';
                 // document.getElementById('results').insertBefore(span, null);
                 //$("#results").html(span);
-
-              } else { // else error
+          //    } else { // else error
                 //*****File contents validation failed*******
+                var alert = " ";
+                //$("#drop-zone").remove();
+                if (HasErrorBool)
+                {
+                    $("#holder").remove();
+                    alert += "<strong><div class='alert alert-error'>You have some errors<div></strong>";
+                }else {
+                //  alert += '<strong>Y</strong>';
+                  document.getElementById('holder').innerHTML =  "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
+                  alert += '<strong>Your file passes!</strong>';
+                }
+                alert += '<br>' + Output + '</table>';
 
-                $("#holder").remove();
                 $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
-                var alert = '<strong>Error: </strong><br>' + Output + "</table>";
                 $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                 $("#alert").html(alert); // output the alert variable to the div
-
-              } // end of error
+            //  } // end of error
             }; // close function 3
           })(f); // close function 2
           reader.readAsText(f, "Windows-1252");
@@ -332,19 +308,13 @@
       } // close loop 1
       return output;
     } // end of procdata
-
     // *********************** MAIN GUTS - END ****************************************
-
-
     // ********************************* EVENT HANDLERS START **************************
-
-
     function handleDragOver(evt) { // function 1 for drag and drop upload
       evt.stopPropagation();
       evt.preventDefault();
       evt.dataTransfer.dropEffect = 'copy'; // Explic show this is a copy.
     } // close function 4
-
     function handleFileSelect(evt) { // function for ubtton upload
       evt.stopPropagation();
       evt.preventDefault();
@@ -353,7 +323,6 @@
       var output = ProcData(files);
       document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
     }
-
     function getFileContents(input) { // function 2 for drag and drop upload
       var file = input.files[0],
         reader = new FileReader();
@@ -368,7 +337,6 @@
       };
       reader.readAsText(file);
     }
-
     // Setup the dnd listeners.
     if (!isIE) {
       var dropZone = document.getElementById('drop_zone');
@@ -376,6 +344,5 @@
       dropZone.addEventListener('drop', handleFileSelect, false);
       document.getElementById('Loadfiles').addEventListener('change', handleFileSelect, false);
     }
-
     //************************EVENT HANDLERS FOR DRAG & DROP -END ***********************
   </script>
