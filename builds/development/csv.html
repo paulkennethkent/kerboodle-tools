@@ -175,6 +175,7 @@
                     return function(e)
                     { //function 3
                       var contents = e.target.result;
+                      contents = contents.replace("\r", "\n");
                       var FileLines = contents.split("\n");
                       var LineCount = FileLines.length;
                       var pattern25 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,25})$/;
