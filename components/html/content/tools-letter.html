@@ -61,7 +61,7 @@
       var FirstnameTest;
       var SecondnameTest;
       var LoginIDtest;
-      var Errchkstring;
+    //  var Errchkstring;
       var output = [];
       var ErrorBool = false;
       if (InstCode == "") {
@@ -112,61 +112,64 @@
                         FirstnameTest = CommaSplit[0];
                         SecondnameTest = CommaSplit[1];
                         LoginIDtest = CommaSplit[3];
-                        Errchkstring = "<br clear='all' style='page-break-before:always;mso-break-type:page-break' /><div style='border:solid 1px black;padding:5px'><p style='text-align:right;'><img style='width:278px;height:98px;'src='http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/tools/components/img/kerboodle-header.png' width=139 height=49 alt='Kerboodle Logo'></p>";
-                        Errchkstring += '<h4 style="text-align:center">Guidance for parents</h4>';
+                        OutString[i-1] = "<p style='text-align:right;'><img style='width:278px;height:98px;'src='http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/tools/components/img/kerboodle-header.png' width=139 height=49 alt='Kerboodle Logo'></p>";
+                        OutString[i-1] += '<h4 style="text-align:center">Guidance for parents</h4>';
 
                         if (FirstnameTest.length > 25) { // the first name is too long for OSP
-                          Errchkstring += "Your child, " + CommaSplit[0] + " is LONGER THAN 25 Charaters!! <br>";
+                          OutString += "Your child, " + CommaSplit[0] + " is LONGER THAN 25 Charaters!! <br>";
                           ErrorBool = true;
                         } else {
                           //Errchkstring += '<wx:sect><w:p><w:pPr><w:pStyle w:val="heading1" /></w:pPr><w:r><w:t>This is a Heading</w:t></w:r></w:p></wx:sect><br>';
                           //  Errchkstring += '<wx:sect><w:p><w:pPr><w:pStyle w:val="heading2" /></w:pPr><w:r><w:t>This is a sub Heading</w:t></w:r></w:p></wx:sect>';
-                          Errchkstring += '<w:p>Your child,';
+                          OutString[i-1] += '<w:p>Your child,';
                           // Errchkstring += '<br>Bla bla bla paragrah<br>';
-                          Errchkstring += "<strong> " + CommaSplit[0] + "";
+                          OutString[i-1] += "<strong> " + CommaSplit[0] + "";
                         }
 
                         if (SecondnameTest.length > 40) { // the first name is too long for OSP
 
-                          Errchkstring += "<font color='red'>Last name: '" + CommaSplit[1] + "' is LONGER THAN 40 Charaters!! </font></strong><br>";
+                          OutString[i-1] += "<font color='red'>Last name: '" + CommaSplit[1] + "' is LONGER THAN 40 Charaters!! </font></strong><br>";
                           ErrorBool = true;
                         } else {
-                          Errchkstring += " " + CommaSplit[1] + "</strong> has an account on Kerboodle. Kerboodle is an online teaching and assessment website that provides support for students’ learning. Your child will be able to use the resources available on the website and may be set work by their teacher(s). </w:p>";
-                          Errchkstring += '<br><br><w:p><strong>How to access Kerboodle</strong></w:p>';
-                          Errchkstring += '<br><br><w:p>Go to <a href="http://www.kerboodle.com">http://www.kerboodle.com</a> and login at the top of the page with the username, password and institution code below:</w:p>';
+                          OutString[i-1] += " " + CommaSplit[1] + "</strong> has an account on Kerboodle. Kerboodle is an online teaching and assessment website that provides support for students’ learning. Your child will be able to use the resources available on the website and may be set work by their teacher(s). </w:p>";
+                          OutString[i-1] += '<br><br><w:p><strong>How to access Kerboodle</strong></w:p>';
+                          OutString[i-1] += '<br><br><w:p>Go to <a href="http://www.kerboodle.com">http://www.kerboodle.com</a> and login at the top of the page with the username, password and institution code below:</w:p>';
 
                         }
-                        OutString += Errchkstring;
+                        //OutString += Errchkstring;
                         if (LoginIDtest.length > 50) { // the first name is too long for OSP
-                          OutString += "<br><strong><font color='red'>Username: " + CommaSplit[3] + " is LONGER THAN 50 Charaters!! </font></strong><br>";
+                          OutString[i-1] += "<br><strong><font color='red'>Username: " + CommaSplit[3] + " is LONGER THAN 50 Charaters!! </font></strong><br>";
                           ErrorBool = true;
                         } else {
-                          OutString += "<br><br><strong>Login Details</strong><br><br></strong>"
-                          OutString += "Your username: <strong>" + CommaSplit[3] + "</strong> <br>Your password: <strong>" + CommaSplit[3] + "</strong>";
+                          OutString[i-1] += "<br><br><strong>Login Details</strong><br><br></strong>"
+                          OutString[i-1] += "Your username: <strong>" + CommaSplit[3] + "</strong> <br>Your password: <strong>" + CommaSplit[3] + "</strong>";
                         }
-                        OutString += "<br> Your school's institution code: <strong>" + InstCode + "</strong><br><br>";
-                        OutString += "<w:p>When your child first logs in, they will be prompted to change their password. We also advise that they add an email address, as this will allow them to reset their password should they forget it in future.<br><br></w:p>";
-                        OutString += "<w:p>Your child should have access to one or more courses on Kerboodle. They will be able to see all of the courses to which they have access once they log in. If they don’t have access to any courses, they should speak to their teacher. </w:p><br><br>";
-                        OutString += "<w:p>If your child has been set a task by their teacher they will receive a notification in the message centre at the top of the page with the information. The task will appear in the Assessment tab within their course on Kerboodle. It may be an interactive activity that will be marked automatically by Kerboodle, or a worksheet or task that needs to be downloaded, completed and either re-uploaded and turned in by hand. For more information on how to complete homework, visit the student section of our support site:<br> <a href='http://www.oxfordsecondary.co.uk/kerboodle-student'>http://www.oxfordsecondary.co.uk/kerboodle-student</a><br><br>";
-                        OutString += "<w:p>Once the work has been marked, your child will be able to view their results in the Markbook module. They will also be able to view feedback on their work.</w:p><br><br>";
-                        OutString += "Your child will also be able to access all of the teaching materials on Kerboodle in the Lessons and Resources modules to consolidate their learning. They just need to log in to Kerboodle, go to their course and click on the relevant module. They will also be able to access a digital version of the student book.";
+                        OutString[i-1] += "<br> Your school's institution code: <strong>" + InstCode + "</strong><br><br>";
+                        OutString[i-1] += "<w:p>When your child first logs in, they will be prompted to change their password. We also advise that they add an email address, as this will allow them to reset their password should they forget it in future.<br><br></w:p>";
+                        OutString[i-1] += "<w:p>Your child should have access to one or more courses on Kerboodle. They will be able to see all of the courses to which they have access once they log in. If they don’t have access to any courses, they should speak to their teacher. </w:p><br><br>";
+                        OutString[i-1] += "<w:p>If your child has been set a task by their teacher they will receive a notification in the message centre at the top of the page with the information. The task will appear in the Assessment tab within their course on Kerboodle. It may be an interactive activity that will be marked automatically by Kerboodle, or a worksheet or task that needs to be downloaded, completed and either re-uploaded and turned in by hand. For more information on how to complete homework, visit the student section of our support site:<br> <a href='http://www.oxfordsecondary.co.uk/kerboodle-student'>http://www.oxfordsecondary.co.uk/kerboodle-student</a><br><br>";
+                        OutString[i-1] += "<w:p>Once the work has been marked, your child will be able to view their results in the Markbook module. They will also be able to view feedback on their work.</w:p><br><br>";
+                        OutString[i-1] += "Your child will also be able to access all of the teaching materials on Kerboodle in the Lessons and Resources modules to consolidate their learning. They just need to log in to Kerboodle, go to their course and click on the relevant module. They will also be able to access a digital version of the student book.";
 
 
                         //  ColCount += 1;
 
                       } else { // else of if 3
                         for (var j = 0; j < CommaCount; ++j) { // loop 3
-                          OutString += CommaSplit[j] + '<br>';
+                          OutString[i-1] += CommaSplit[j] + '<br>';
                           //   ColCount += 1;
                         } // close loop 3
                       } //close if 3
-                      OutString += '</div>';
-                      OutString += '<!-- ADD_PAGE --><br clear="all" style="page-break-before:always;mso-break-type:page-break" />';
+                    //  OutString += '</div><div style="border:solid 1px black;padding:5px">';
+                    if(i < (LineCount-2))
+                    {
+                      OutString[i-1] += '<!-- ADD_PAGE --><br clear="all" style="page-break-before:always;mso-break-type:page-break" />';
+                    }
                       //OutString += '<w:p><br>Bla bla bla paragrah<br></w:p>';
                       //  OutString += '<br clear="all" style="page-break-before:always;mso-break-type:page-break" /><w:page>';
                     }
                   } // close loop 2
-                  OutString += '</div>';
+                // OutString += '</div>';
 
                   TestFunc = '<html xmlns:v="urn:schemas-microsoft-com:vml" ';
                   TestFunc += 'xmlns:o="urn:schemas-microsoft-com:office:office" ';
@@ -186,7 +189,7 @@
                   TestFunc += '</style><xml><w:WordDocument>';
                   TestFunc += '</w:WordDocument></xml></head>';
                   // TestFunc += '<body><div class="Section1">';
-                  TestFunc += OutString;
+                  TestFunc += OutString.join('');
                   // TestFunc += '</div>';
 
                   var OutPutLine;
@@ -217,9 +220,11 @@
                   $(".form-inline").remove(); // remove the inst form
                   $("#headings").remove(); //remove the step 1 heading
                   $("#headings").html("Step 3:"); // renames the Step 2 heading to Step 3
-                  document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
+                  document.getElementById('results');
+                  //.innerHTML = '<ul>' + outString.join('</ul><ul>') + '</ul>';
                   var span = document.createElement('span');
-                  span.innerHTML = [OutString].join('');
+                   span.innerHTML = '<ul><div style="border:solid 1px black;padding:5px">' + OutString.join('</div></ul><ul><div style="border:solid 1px black;padding:5px">') + '</div></ul>';
+                //  span.innerHTML = '<div style="border:solid 1px black;padding:5px">' + [OutString].join('') + '</div>';
                   document.getElementById('results').insertBefore(span, null);
                 } else {
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Load Different CSV</button>');
