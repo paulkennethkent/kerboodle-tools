@@ -7420,6 +7420,14 @@ li.active {
   color: #669933;
 }
 
+#drop_zone {
+  border: 2px dashed #BBBBBB;
+  border-radius: 5px;
+  color: #000000;
+  padding: 100px;
+  text-align: center;
+}
+
 .nav-tabs > li, .nav-pills > li {
   float: none;
   display: inline-block;
