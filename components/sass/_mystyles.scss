@@ -129,3 +129,12 @@ vertical-align: middle;
 .text-success {
 	color: $green;
 }
+
+
+#drop_zone {
+		border: 2px dashed #BBBBBB;
+		border-radius: 5px;
+		color: #000000;
+		padding: 100px;
+		text-align: center;
+}

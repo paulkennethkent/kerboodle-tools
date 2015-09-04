@@ -57,7 +57,7 @@ gulp.task('js', function() {
 	.pipe(browserify())
 	.pipe(gulpif(env === 'production', uglify()))
 	.on('error', gutil.log)
-	.pipe(gulp.dest(outputDir +'js'))
+	.pipe(gulp.dest(outputDir +'_/js/'))
 	.pipe(connect.reload());
 });
 
@@ -87,7 +87,7 @@ gulp.task('compass', function() {
 		style: sassStyle
 	}))
 	.on('error', gutil.log)
-	.pipe(gulp.dest(outputDir + 'css'))
+	.pipe(gulp.dest(outputDir + '_/css/'))
 	.pipe(connect.reload());
 });
 
