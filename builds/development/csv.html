@@ -33,7 +33,7 @@
         </a>
         <!-- <div class="navbar-pattern pull-right"><img alt="Tools logo" class="centered hidden-xs" src="img/tools-icon.svg"></div> -->
         <ul class="nav nav-pills ">
-          <li role="presentation"> <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/">Kerboodle Support Home</a> </li>
+          <li role="presentation"> <a href="https://global.oup.com/education/product_support/kerboodle/">Kerboodle Support Home</a> </li>
           <li role="presentation"> <a href="system.html">System Checker</a> </li>
           <li role="presentation"> <a href="slips.html">Student Slips</a> </li>
           <li role="presentation"> <a href="letter.html">Parent Letter</a> </li>
@@ -227,7 +227,7 @@
                             {
                               LineBool = true;
                             }
-                            LineOut += "<td><div class='alert alert-error'>" + ColNames[1] + "</div></td>";
+                            LineOut += "<td class='danger'>" + ColNames[1] + "</td>";
                           }
                           else
                           {
@@ -240,7 +240,7 @@
                             {
                               LineBool = true;
                             }
-                            LineOut += "<td><div class='alert alert-error'>" + ColNames[2] + "</div></td>";
+                            LineOut += "<td class='danger'>" + ColNames[2] + "</td>";
                           }
                           else
                           {
@@ -253,7 +253,7 @@
                             {
                               LineBool = true;
                             }
-                            LineOut += "<td><div class='alert alert-error'>" + ColNames[3] + "</div></td>";
+                            LineOut += "<td class='danger'>" + ColNames[3] + "</td>";
                           }
                           else
                           {
@@ -266,7 +266,7 @@
                             {
                               LineBool = true;
                             }
-                            LineOut += "<td><div class='alert alert-error'>" + ColNames[4] + "</div></td>";
+                            LineOut += "<td class='danger'>" + ColNames[4] + "</td>";
                           }
                           else
                           {
@@ -295,7 +295,7 @@
                             else
                             {
                               TestCatch = Testfunc(ColNames[0], 1, 40);
-                              LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
+                              LineOut += "<td class='danger'>" + TestCatch + "</td>";
                               LineBool = true;
                               //Output += "Line " + (j+1) + " - column 1: " + TestCatch + "<br>";
                               HasErrorBool = true;
@@ -308,7 +308,7 @@
                             else
                             {
                               TestCatch = Testfunc(ColNames[1], 1, 25);
-                              LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
+                              LineOut += "<td class='danger'>" + TestCatch + "</td>";
                               LineBool = true;
                               //Output += "Line " + (j+1) + " - column 2: " + TestCatch + "<br>";
                               HasErrorBool = true;
@@ -318,7 +318,7 @@
                               // see if its already in the hastable
                               if (Numhash[ColNames[2]])
                               {
-                                LineOut += "<td><div class='alert alert-error'>Duplicate Admin Number:" + ColNames[2] + "</div></td>";
+                                LineOut += "<td class='danger'>Duplicate Admin Number:" + ColNames[2] + "</td>";
                                 LineBool = true;
                                 HasErrorBool = true;
                                 // if so thats an error
@@ -334,7 +334,7 @@
                             else
                             {
                               TestCatch = Testfunc(ColNames[2], 1, 50);
-                              LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
+                              LineOut += "<td class='danger'>" + TestCatch + "</td>";
                               LineBool = true;
                               //Output += "Line " + (j+1) + " - column 3: " + TestCatch +"<br>";
                               HasErrorBool = true;
@@ -347,7 +347,7 @@
                             else
                             {
                               TestCatch = Testfunc(ColNames[3], 1, 75);
-                              LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
+                              LineOut += "<td class='danger'>" + TestCatch + "</td>";
                               LineBool = true;
                               //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
                               HasErrorBool = true;
@@ -360,7 +360,7 @@
                             else
                             {
                               TestCatch = Testfunc(ColNames[4], 0, 75);
-                              LineOut += "<td><div class='alert alert-error'>" + TestCatch + "</div></td>";
+                              LineOut += "<td class='danger'>" + TestCatch + "</td>";
                               LineBool = true;
                               //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
                               HasErrorBool = true;
@@ -390,7 +390,7 @@
                       if (HasErrorBool)
                       {
                         $("#holder").remove();
-                        alert += "<strong><div class='alert alert-error'>You have some errors<div></strong>";
+                        alert += "<strong><div class='dangerr'>You have some errors<div></strong>";
                       }
                       else
                       {
@@ -400,7 +400,7 @@
                       }
                       alert += '<br>' + Output + '</table>';
                       $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
-                      $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                      $('#alert').addClass("danger"); // adds the alert class to div id alert
                       $("#alert").html(alert); // output the alert variable to the div
                       //  } // end of error
                     }; // close function 3
@@ -414,7 +414,7 @@
                   $("#holder").remove();
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Try another file</button>');
                   var alert = '<strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file!!';
-                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                  $('#alert').addClass("danger"); // adds the alert class to div id alert
                   $("#alert").html(alert); // output the alert variable to the div
                 } // close if 1
               } // close loop 1
