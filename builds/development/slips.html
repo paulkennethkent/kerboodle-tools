@@ -8,7 +8,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Kerboodle Support</title>
-    <link href="css/style.css" rel="stylesheet">
     <!-- Custom CSS -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,11 +16,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- <link href="/_/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-    <link href="/_/css/style.css" rel="stylesheet" media="screen">
+    <link href="_/css/style.css" rel="stylesheet" media="screen">
     <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
-    <script src="/_/js/bootstrap.js"></script>
-    <script src="/_/js/DetLibs.js"></script>
+    <script src="_/js/bootstrap.js"></script>
+    <script src="_/js/detlibs.js"></script>
   </head>
 
   <body id="slips">
@@ -114,7 +113,7 @@
               var ErrorBool = false;
               if (InstCode == "")
               {
-                var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: Please enter in your institution code</strong>';
+                var alert = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Error: Please enter in your institution code</div>";
                 $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                 $("#alert").html(alert); // output the alert variable to the div
                 if (isIE)
@@ -269,7 +268,7 @@
                             else
                             {
                               OutPutLine = '<a href="data:application/msword;charset=UTF-8, ' + encodeURIComponent(TestFunc) + '" download="' + decodeURIComponent(escape('Login Slips.doc')) + '" ><input id="Button1" type="button" class="btn btn-success" value="Downlod Word Document" /></a>';
-                              OutPutLine += ' <button class="btn btn-success" type="button" onClick="printPDF();" >Print as PDFs</button>';
+                              // OutPutLine += ' <button class="btn btn-success" type="button" onClick="printPDF();" >Print as PDFs</button>';
                               OutPutLine += ' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
                             }
                           }
@@ -278,7 +277,8 @@
                           //$('#buttons').removeAttr('id'); //remove the drops zones
                           $(".form-inline").remove(); // remove the inst form
                           $("#headings").remove(); //remove the step 1 heading
-                          $("#headings").html("Step 3:"); // renames the Step 2 heading to Step 3
+                          $("#headings").remove(); //remove the step 1 heading
+                          $("#headings").html("Step 4:"); // renames the Step 2 heading to Step 3
                           document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
                           var span = document.createElement('span');
                           span.innerHTML = [OutString].join('');
@@ -287,7 +287,7 @@
                         else
                         {
                           $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Load Different CSV</button>');
-                          var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(Filename) + ' does not contain Kerboodle Usernames!!';
+                          var alert = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Error:" + escape(Filename) + " Is not an CSV export file from Kerboodle. Please read the instructions above to find out how you can export your students from Kerboodle. <div>";
                           $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                           $("#alert").html(alert); // output the alert variable to the div
                         }
@@ -537,6 +537,6 @@
     <!-- /#footer -->
     <!-- jQuery -->
   </body>
-  <script src="/_/js/myscript.js"></script>
+  <script src="_/js/myscript.js"></script>
 
 </html>

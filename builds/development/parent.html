@@ -8,7 +8,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Kerboodle Support</title>
-    <link href="css/style.css" rel="stylesheet">
     <!-- Custom CSS -->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,11 +16,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- <link href="/_/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-    <link href="/_/css/style.css" rel="stylesheet" media="screen">
+    <link href="_/css/style.css" rel="stylesheet" media="screen">
     <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
-    <script src="/_/js/bootstrap.js"></script>
-    <script src="/_/js/DetLibs.js"></script>
+    <script src="_/js/bootstrap.js"></script>
+    <script src="_/js/detlibs.js"></script>
   </head>
 
   <body id="letter">
@@ -33,10 +32,10 @@
         </a>
         <!-- <div class="navbar-pattern pull-right"><img alt="Tools logo" class="centered hidden-xs" src="img/tools-icon.svg"></div> -->
         <ul class="nav nav-pills ">
-          <li role="presentation"> <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/">Kerboodle Support Home</a> </li>
-          <li role="presentation"> <a href="index.html">System Checker</a> </li>
+          <li role="presentation"> <a href="https://global.oup.com/education/product_support/kerboodle/">Kerboodle Support Home</a> </li>
+          <li role="presentation"> <a href="system.html">System Checker</a> </li>
           <li role="presentation"> <a href="slips.html">Student Slips</a> </li>
-          <li role="presentation"> <a href="parent.html">Parent Letter</a> </li>
+          <li role="presentation"> <a href="letter.html">Parent Letter</a> </li>
           <li role="presentation"> <a href="csv.html">CSV Checker</a> </li>
         </ul>
     </nav>
@@ -47,12 +46,13 @@
         <div class="page">
           <div class="header"> </div>
           <h1>Student Login Details - Letters for Parents</h1>
-          <p>If you are looking to distribute the login details to your pupils, then you can use this tool to create handy a .doc and PDF file. All you will need is your CSV file and to follow the 3 step process below. Please note that the login details
-            are not saved anywhere, and the data never leaves your PC.</p>
+          <p>Use this tool to create a letter containing information, including login details, to help your students get started on Kerboodle. You can then send this letter to your students’ parents. All you will need is your CSV file and to follow the 3
+            step process below. Please note that the login details are not saved anywhere, and the data never leaves your PC.</p>
           <h4 id="headings">Step 1:</h4>
+          <p>Login to your teacher account and select the relevant course. Click the <i>User Management</i> tab and then the <i>User Details</i> button. Select the group details that you wish to export and click the <i>Export</i> button.</p>
           <form class="form-inline">
             <label>Please enter institution code:</label>
-            <input type="text" name="Inst" placeholder="code" value="gu1"> </form>
+            <input type="text" name="Inst" placeholder="code" value=""> </form>
           <h4 id="headings">Step 2:</h4>
           <div id="alert"></div>
           <div id="holder"></div>
@@ -79,7 +79,7 @@
               case 'MSIE':
                 if (browser_version < 10)
                 {
-                  $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
+                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                   document.getElementById('alert').innerHTML = "You are running Internet Explorer 9 or below. Please use this utility in a different browser.";
                 }
                 else
@@ -111,7 +111,7 @@
               if (InstCode == "")
               {
                 var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: Please enter in your institution code</strong>';
-                $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
+                $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                 $("#alert").html(alert); // output the alert variable to the div
                 if (isIE)
                 {
@@ -248,7 +248,7 @@
                           var OutPutLine;
                           if (ErrorBool)
                           { // some entries are too long - error message and no buttons
-                            $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
+                            $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                             document.getElementById('alert').innerHTML = "Your file has some <strong>over-length </strong>entires which need correcting before the slips will be generated, please see below for details!";
                             OutPutLine = ' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
                           }
@@ -286,7 +286,7 @@
                         {
                           $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Load Different CSV</button>');
                           var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(Filename) + ' does not contain Kerboodle Usernames!!';
-                          $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
+                          $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                           $("#alert").html(alert); // output the alert variable to the div
                         }
                       }; // close function 3
@@ -297,7 +297,7 @@
                   { // else of if 1
                     // this triggers if its not a csv file that drag n drops
                     var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(f.name) + ' is not a comma seperated (.csv) file!!';
-                    $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
+                    $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                     $("#alert").html(alert); // output the alert variable to the div
                   } // close if 1
                 } // close loop 1
@@ -466,6 +466,6 @@ The above copyright notice and this permission notice shall be included in all c
     <!-- /#footer -->
     <!-- jQuery -->
   </body>
-  <script src="/_/js/myscript.js"></script>
+  <script src="_/js/myscript.js"></script>
 
 </html>
