@@ -447,7 +447,7 @@
               {
                 var files = event.target.result;
                 var inArray = [file];
-                var output = ProcData(inArray, InstCode);
+                var output = ProcData(inArray);
                 document.getElementById('results').innerHTML = '<ul>' + output.join('') + '</ul>';
                 //document.write(output.toString());
                 //processFileContents( files )
