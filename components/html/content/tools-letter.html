@@ -4,6 +4,9 @@
   </div>
   <h1>Student Login Details - Letters for Parents</h1>
   <p>Use this tool to create a letter containing information, including login details, to help your students get started on Kerboodle. You can then send this letter to your students’ parents. All you will need is your CSV file and to follow the 3 step process below. Please note that the login details are not saved anywhere, and the data never leaves your PC.</p>
+  <p>
+    <em>Please use Google Chrome for the best experience with these tools.</em>
+  </p>
   <h4 id="headings">Step 1:</h4>
       <p>Login to your teacher account and select the relevant course. Click the <i>User Management</i> tab and then the <i>User Details</i> button. Select the group details that you wish to export and click the <i>Export</i> button.</p>
   <form class="form-inline">
@@ -36,7 +39,7 @@
     switch (browser) {
       case 'MSIE':
         if (browser_version < 10) {
-          $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+          $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
           document.getElementById('alert').innerHTML = "You are running Internet Explorer 9 or below. Please use this utility in a different browser.";
         } else {
           document.getElementById('buttons').innerHTML = "You are running Internet Explorer 10. Please upload the file using the button provided<br><input type='file' onChange='getFileContents(this)'>";
@@ -66,7 +69,7 @@
       var ErrorBool = false;
       if (InstCode == "") {
         var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: Please enter in your institution code</strong>';
-        $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+        $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
         $("#alert").html(alert); // output the alert variable to the div
 
         if (isIE) {
@@ -194,7 +197,7 @@
 
                   var OutPutLine;
                   if (ErrorBool) { // some entries are too long - error message and no buttons
-                    $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                    $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
                     document.getElementById('alert').innerHTML = "Your file has some <strong>over-length </strong>entires which need correcting before the slips will be generated, please see below for details!";
                     OutPutLine = ' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
                   } else {
@@ -202,7 +205,6 @@
                     $("#alert").remove(); //get rid of any alert messages when a successful file is uploaded
                     if (isIE) {
                       OutPutLine = '<button class="btn btn-success" type="button" onClick="printData()" >Print Slips</button>';
-                      OutPutLine += '<button class="btn btn-success" type="button" onClick="printPDF();" >Print as PDFs</button>'
                       OutPutLine += '<button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
 
                     } else {
@@ -229,7 +231,7 @@
                 } else {
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Load Different CSV</button>');
                   var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(Filename) + ' does not contain Kerboodle Usernames!!';
-                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+                  $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
                   $("#alert").html(alert); // output the alert variable to the div
 
                 }
@@ -240,7 +242,7 @@
             // this triggers if its not a csv file that drag n drops
 
             var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(f.name) + ' is not a comma seperated (.csv) file!!';
-            $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+            $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
             $("#alert").html(alert); // output the alert variable to the div
           } // close if 1
         } // close loop 1

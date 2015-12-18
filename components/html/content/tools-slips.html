@@ -1,6 +1,9 @@
 <div class="page">
   <h1>Student Account Slips</h1>
   <p>If you are looking to distribute the login details to your students then you can use this tool to generate student slips which you can then hand out to your students. </p>
+  <p>
+    <em>Please use Google Chrome for the best experience with these tools.</em>
+  </p>
   <h4 id="headings">Step 1:</h4>
   <p>Log in to your teacher account and select the relevant course. Click the <i>User Management</i> tab and then the <i>User Details</i> button. Select the group details that you wish to export and click the <i>Export</i> button.</p>
   <h4 id="headings">Step 2:</h4>
@@ -10,7 +13,6 @@
   <h4 id="headings">Step 3:</h4>
   <div id="alert"></div>
   <div id="holder">
-    <div id="drop_zone">Please Drag and Drop the .csv file here'</div>
   </div>
   <div id="buttons">
     <input type="file" id="Loadfiles" name="files[]" multiple="">
@@ -37,7 +39,7 @@
       case 'MSIE':
         if (browser_version < 10)
         {
-          $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+          $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
           document.getElementById('alert').innerHTML = "You are running Internet Explorer 9 or below. Please use this utility in a different browser.";
         }
         else
@@ -68,8 +70,8 @@
       var ErrorBool = false;
       if (InstCode == "")
       {
-        var alert = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Error: Please enter in your institution code</div>";
-        $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+        var alert = "<div id='alert' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Error: Please enter in your institution code</div>";
+        $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
         $("#alert").html(alert); // output the alert variable to the div
         if (isIE)
         {
@@ -207,7 +209,7 @@
                   var OutPutLine;
                   if (ErrorBool)
                   { // some entries are too long - error message and no buttons
-                    $("#alert").addClass("alert alert-error"); // adds the alert class to div id alert
+                    $("#alert").addClass("alert alert-danger"); // adds the alert class to div id alert
                     document.getElementById('alert').innerHTML = "Your file has some <strong>over-length </strong>entires which need correcting before the slips will be generated, please see below for details!";
                     OutPutLine = ' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
                   }
@@ -217,7 +219,8 @@
                     $("#alert").remove(); //get rid of any alert messages when a successful file is uploaded
                     if (isIE)
                     {
-                      OutPutLine = '<button class="btn btn-success" type="button" onClick="printData()" >Print Slips</button><button class="btn btn-success" type="button" onClick="printPDF();" >Download PDF</button>';
+
+                      OutPutLine = '<button class="btn btn-success" type="button" onClick="printData()" >Print Slips</button>';
                       OutPutLine += ' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Reload CSV</button>';
                     }
                     else
@@ -243,7 +246,6 @@
                 {
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Load Different CSV</button>');
                   var alert = "<div class='alert alert-danger alert-dismissible' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Error:" + escape(Filename) + " Is not an CSV export file from Kerboodle. Please read the instructions above to find out how you can export your students from Kerboodle. <div>";
-                  $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
                   $("#alert").html(alert); // output the alert variable to the div
                 }
               }; // close function 3
@@ -254,7 +256,7 @@
           { // else of if 1
             // this triggers if its not a csv file that drag n drops
             var alert = '<button type="button" class="close" data-dismiss="alert">&times;</button><strong>Error: </strong>' + escape(f.name) + ' is not a comma seperated (.csv) file!!';
-            $('#alert').addClass("alert alert-error"); // adds the alert class to div id alert
+            $('#alert').addClass("alert alert-danger"); // adds the alert class to div id alert
             $("#alert").html(alert); // output the alert variable to the div
           } // close if 1
         } // close loop 1
