@@ -208,14 +208,24 @@
               OKtest = true;
               break;
             case "MSIE":
-              text1 = "Internet Explorer " + browser_version + " please upgrade your browser";
-              Brout = "Internet Explorer " + browser_version;
-              Totres = Totres + 20;
-              if (BVerInt >= 9)
+              var testx = navigator.userAgent;
+              if (testx.indexOf("compatible") > -1)
               {
-                text1 = "<em>" + "Internet Explorer " + browser_version + "</em>";
-                Totres = Totres - 20;
+                text1 = "IE Compatibility Mode (Edge running as IE " + browser_version + ")";
+                Brout = text1;
                 OKtest = true;
+              }
+              else
+              {
+                text1 = "Internet Explorer " + browser_version + " please upgrade your browser";
+                Brout = "Internet Explorer " + browser_version;
+                Totres = Totres + 20;
+                if (BVerInt >= 9)
+                {
+                  text1 = "<em>" + "Internet Explorer " + browser_version + "</em>";
+                  Totres = Totres - 20;
+                  OKtest = true;
+                }
               }
               break;
             case "Firefox":
