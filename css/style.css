@@ -7428,6 +7428,10 @@ li.active {
   text-align: center;
 }
 
+#holder {
+  padding-top: 10px;
+}
+
 .nav-tabs > li, .nav-pills > li {
   float: none;
   display: inline-block;

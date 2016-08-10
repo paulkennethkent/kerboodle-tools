@@ -411,8 +411,8 @@
                       else
                       {
                         //  alert += '<strong>Y</strong>';
-                        document.getElementById('holder').innerHTML = "<div class='text-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
-                        alert += '<strong>Your file passes!</strong>';
+                        document.getElementById('holder').innerHTML = "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
+                        alert += '<div class="text-success">Your file passes!</div>';
                       }
                       alert += '<br>' + Output + '</table>';
                       $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
@@ -420,7 +420,7 @@
                       if (fredboolean)
                       {
                         //$("#alert").html('<strong>Error: </strong>"' + f.name + '" is an old-style CSV, please download the new template');
-                        alert = '<strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the new template from the link above.<br>';
+                        alert = '<div class="alert alert-danger"><strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a>. For more info on how to populate the CSV file visit our <a href="http://www.oxfordsecondary.co.uk/kerboodle-admin-walkthrough"> administrator walkthroughs</a>  <br></div>';
                         $("#alert").html(alert);
                         //f rom here: <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a>');
                         //  $("#alert").html("old format Error: " + fredboolean + " test " + fredstring);
@@ -440,7 +440,7 @@
                   $("#holder").remove();
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Try another file</button>');
                   $('#alert').addClass("text-danger"); // adds the alert class to div id alert
-                  $("#alert").html('<strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file'); // output the alert variable to the div
+                  $("#alert").html('<div class="alert alert-danger"><strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file</div>'); // output the alert variable to the div
                 }
               } // close loop 1
               return output;
