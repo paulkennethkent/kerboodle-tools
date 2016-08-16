@@ -21,6 +21,23 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1-rc2/jquery.min.js"></script>
     <script src="_/js/bootstrap.js"></script>
     <script src="_/js/detlibs.js"></script>
+    <script>
+      (function(i, s, o, g, r, a, m)
+      {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function()
+        {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+      ga('create', 'UA-82473335-1', 'auto');
+      ga('send', 'pageview');
+    </script>
   </head>
 
   <body id="checker">
@@ -186,7 +203,7 @@
                       var pattern50 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,50})$/;
                       var pattern75 = /^([a-zA-Z0-9\s_(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ.)/\\'\-]{1,75})$/;
                       var pattern75a = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{0,75})$/;
-                      var patternEmail = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/;
+                      var patternEmail = /^[-a-zA-Z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/;
                       //var pattern25  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,25})$/;
                       //var pattern40  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,40})$/;
                       //var pattern50  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,50})$/;
@@ -411,8 +428,8 @@
                       else
                       {
                         //  alert += '<strong>Y</strong>';
-                        document.getElementById('holder').innerHTML = "<div class='alert alert-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
-                        alert += '<div class="text-success">Your file passes!</div>';
+                        document.getElementById('holder').innerHTML = "<div class='text-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
+                        alert += '<strong>Your file passes!</strong>';
                       }
                       alert += '<br>' + Output + '</table>';
                       $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
@@ -420,7 +437,7 @@
                       if (fredboolean)
                       {
                         //$("#alert").html('<strong>Error: </strong>"' + f.name + '" is an old-style CSV, please download the new template');
-                        alert = '<div class="alert alert-danger"><strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a>. For more info on how to populate the CSV file visit our <a href="http://www.oxfordsecondary.co.uk/kerboodle-admin-walkthrough"> administrator walkthroughs</a>  <br></div>';
+                        alert = '<strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the new template from the link above.<br>';
                         $("#alert").html(alert);
                         //f rom here: <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a>');
                         //  $("#alert").html("old format Error: " + fredboolean + " test " + fredstring);
@@ -440,7 +457,7 @@
                   $("#holder").remove();
                   $('#buttons').html(' <button class="btn btn-danger" type="button" onClick="window.location.reload()">Try another file</button>');
                   $('#alert').addClass("text-danger"); // adds the alert class to div id alert
-                  $("#alert").html('<div class="alert alert-danger"><strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file</div>'); // output the alert variable to the div
+                  $("#alert").html('<strong>Error: </strong>"' + f.name + '" is not a comma seperated (.csv) file'); // output the alert variable to the div
                 }
               } // close loop 1
               return output;
@@ -501,7 +518,7 @@
         <p class="text-muted">
           <p>&copy; 2015 Oxford University Press. All rights reserved &#124; <a href='https://global.oup.com/education/content/secondary/online-products/privacy/;jsessionid=AEF13606D71BEDF62F97C1F80A094521?region=uk' target="_blank">Privacy Policy</a> &#124;
             <a href='https://global.oup.com/education/content/secondary/online-products/legal/?region=uk' target="_blank">Legal Notice</a> &#124; <a href='https://global.oup.com/education/help/technical-support/helpdesk-platform?region=uk' target="_blank">Contact Us</a>            &#124; <a href='http://www.kerboodle.com/users/login' target="_blank">Kerboodle.com</a> &#124; <a href='https://twitter.com/kerboodle' target="_blank">@Kerboodle</a> &#124; <a href='https://www.youtube.com/playlist?list=PLW-Dpen99Aj6aBAFMSBTcERCu3JjkRovu'
-            target="_blank">YouTube</a> </p>
+              target="_blank">YouTube</a> </p>
         </p>
       </div>
     </footer>
