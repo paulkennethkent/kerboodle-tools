@@ -70,6 +70,7 @@
           <div id="alert"></div>
           <div id="holder"></div>
           <div id="buttons"></div>
+          </br>
           <script>
             // the 3 divs abover are for:
             // 1. alert - returns error messages
@@ -429,7 +430,7 @@
                       {
                         //  alert += '<strong>Y</strong>';
                         document.getElementById('holder').innerHTML = "<div class='text-success' id='results'>This CSV file has passed the check. If you are still having issues then please <a href='mailto:support@kerboodle.com'>email</a> us and attach the CSV file.</div>";
-                        alert += '<strong>Your file passes!</strong>';
+                        alert += '<div class="alert alert-success">Your file passes!</div>';
                       }
                       alert += '<br>' + Output + '</table>';
                       $('#buttons').html(' <button class="btn btn-primary" type="button" onClick="window.location.reload()">Try another file</button>');
@@ -437,7 +438,7 @@
                       if (fredboolean)
                       {
                         //$("#alert").html('<strong>Error: </strong>"' + f.name + '" is an old-style CSV, please download the new template');
-                        alert = '<strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the new template from the link above.<br>';
+                        alert = '<strong>Error: </strong>"' + filename + '" is an old layout CSV, please download the new template from the link above.';
                         $("#alert").html(alert);
                         //f rom here: <a href="http://fdslive.oup.com/www.oup.com/oxed/oxbox-support/downloads/template.csv">CSV template</a>');
                         //  $("#alert").html("old format Error: " + fredboolean + " test " + fredstring);
