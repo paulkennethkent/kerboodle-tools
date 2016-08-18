@@ -144,7 +144,7 @@
               var pattern50 = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{1,50})$/;
               var pattern75 = /^([a-zA-Z0-9\s_(àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ.)/\\'\-]{1,75})$/;
               var pattern75a = /^([a-zA-Z0-9\s_àâäáçæèëéêìïîíñòöôóœûüùúŵŷÿÀÂÄÁÇÆÈËÉÊÌÏÎÍÑÒÖÔÓŒÛÜÙÚŴŶŸ(.)/\\'\-]{0,75})$/;
-              var patternEmail = /^\A\S+@.+\.\S+\z$/;
+              var patternEmail = /([\A\S+@.+\.\S+\z])/;
               //var pattern25  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,25})$/;
               //var pattern40  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,40})$/;
               //var pattern50  =/^([a-zA-Z0-9\s_(.)/\\'\-]{1,50})$/;
@@ -152,7 +152,8 @@
               //var pattern75a =/^([a-zA-Z0-9\s_(.)/\\'\-]{0,75})$/;
               var TestString;
               var TestCatch;
-              var Numhash = {};
+              var Numhash = new Object();
+              var Emailhash = new Object();
               for (var j = 0; j < LineCount; j++)
               { // start of loop thorugh lines
                 // *********test column headings************
@@ -323,8 +324,20 @@
                     }
                     if (patternEmail.test(ColNames[4]))
                     {
-                      LineOut += "<td>" + ColNames[4] + "</td>";
-                      //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
+                      if (Emailhash[ColNames[4]])
+                      {
+                        LineOut += "<td class='text-danger'>Duplicate Email:" + ColNames[4] + "</td>";
+                        LineBool = true;
+                        HasErrorBool = true;
+                        // if so thats an error
+                      }
+                      else
+                      {
+                        // if not put it in
+                        Emailhash[ColNames[4]] = true;
+                            LineOut += "<td>" + ColNames[4] + "</td>";
+                      }
+                     //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
                     }
                     else
                     {
