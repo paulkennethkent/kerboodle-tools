@@ -324,35 +324,42 @@
                         //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
                         HasErrorBool = true;
                       }
-                      ColNames[4] = ColNames[4].trim();
-                      if (patternEmail.test(ColNames[4]))
+                      if (ColNames[4] == ColNames[4].trim())
                       {
-                        if (Emailhash[ColNames[4]])
+                        if (patternEmail.test(ColNames[4]))
                         {
-                          LineOut += "<td class='text-danger'>Duplicate Email:" + ColNames[4] + "</td>";
-                          LineBool = true;
-                          HasErrorBool = true;
-                          // if so thats an error
+                          if (Emailhash[ColNames[4]])
+                          {
+                            LineOut += "<td class='text-danger'>Duplicate Email:" + ColNames[4] + "</td>";
+                            LineBool = true;
+                            HasErrorBool = true;
+                            // if so thats an error
+                          }
+                          else
+                          {
+                            // if not put it in
+                            Emailhash[ColNames[4]] = true;
+                                LineOut += "<td>" + ColNames[4] + "</td>";
+                          }
+                         //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
                         }
                         else
                         {
-                          // if not put it in
-                          Emailhash[ColNames[4]] = true;
-                              LineOut += "<td>" + ColNames[4] + "</td>";
+                          if(!ColNames[4])
+                          {
+                            LineOut += "<td> - </td>";
+                          } else {
+                          LineOut += "<td class='text-danger'>" + ColNames[4] + " is not a valid email address</td>";
+                          LineBool = true;
+                          //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
+                          HasErrorBool = true;
+                          }
                         }
-                       //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
-                      }
-                      else
-                      {
-                        if(!ColNames[4])
-                        {
-                          LineOut += "<td> - </td>";
-                        } else {
-                        LineOut += "<td class='text-danger'>" + ColNames[4] + " is not a valid email address</td>";
+                      } else {
+                        LineOut += "<td class='text-danger'>" + ColNames[4] + "has spaces around it that need to be removed</td>";
                         LineBool = true;
                         //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
                         HasErrorBool = true;
-                        }
                       }
                       //  if (LineBool) {
                       Output += "<tr><td>" + (j + 1) + "</td>" + LineOut + "</tr>";
