@@ -154,209 +154,223 @@
               var TestCatch;
               var Numhash = new Object();
               var Emailhash = new Object();
-              for (var j = 0; j < LineCount; j++)
-              { // start of loop thorugh lines
-                // *********test column headings************
-                TestString = FileLines[j].toString();
-                TestString = TestString.replace(/(\r\n|\n|\r)/gm, "");
-                ColNames = TestString.split(",");
-                if (j == 0)
-                { // start of header process
-                  ColCount = ColNames.length;
-                  if (ColCount != 5)
-                  { // start of column header check
-                    HasErrorBool = true;
-                    LineBool = false;
-                    LineOut = "";
-                    Output += "<div class='text-danger'>File - has " + ColCount + " columns: should have 5<br></div>";
-                  }
-                  if(ColNames[4] !== "Email address (optional)")
-                  {
-                     Output += "email address title is not found";
-                     fredboolean = true;
-                     fredstring = ColCount[4];
+              if (LineCount <= 400)
+              {
+                for (var j = 0; j < LineCount; j++)
+                { // start of loop thorugh lines
+                  // *********test column headings************
+                  TestString = FileLines[j].toString();
+                  TestString = TestString.replace(/(\r\n|\n|\r)/gm, "");
+                  ColNames = TestString.split(",");
+                  if (j == 0)
+                  { // start of header process
+                    ColCount = ColNames.length;
+                    if (ColCount != 5)
+                    { // start of column header check
+                      HasErrorBool = true;
+                      LineBool = false;
+                      LineOut = "";
+                      Output += "<div class='text-danger'>File - has " + ColCount + " columns: should have 5<br></div>";
+                    }
+                    if(ColNames[4] !== "Email address (optional)")
+                    {
+                       Output += "email address title is not found";
+                       fredboolean = true;
+                       fredstring = ColCount[4];
 
-                  }
-                  Output += "<table border=1><tr><td>Line No.</td><td>Surname<br>Max Chars 40</td>";
-                  Output += "<td>First name<br>Max Chars 25</td><td>Admission Number<br>Max Chars 50</td>"
-                  Output += "<td>Year<br>Max Chars 75</td><td>Email address (optional)<br>should be a valid email address</td></tr>";
-                  if (ColNames[0] !== "Surname")
-                  {
-                    LineBool = true;
-                    LineOut += "<td><div class='text-error'>" + ColNames[0] + "</div></td>";
-                    HasErrorBool = true;
-                  }
-                  else
-                  {
-                    LineOut += "<td>" + ColNames[0] + "</td>";
-                  }
-                  if (ColNames[1] !== "First name")
-                  {
-                    HasErrorBool = true;
-                    if (!LineBool)
+                    }
+                    Output += "<table border=1><tr><td>Line No.</td><td>Surname<br>Max Chars 40</td>";
+                    Output += "<td>First name<br>Max Chars 25</td><td>Admission Number<br>Max Chars 50</td>"
+                    Output += "<td>Year<br>Max Chars 75</td><td>Email address (optional)<br>should be a valid email address</td></tr>";
+                    if (ColNames[0] !== "Surname")
                     {
                       LineBool = true;
+                      LineOut += "<td><div class='text-error'>" + ColNames[0] + "</div></td>";
+                      HasErrorBool = true;
                     }
-                    LineOut += "<td class='text-danger'>" + ColNames[1] + "</td>";
-                  }
-                  else
-                  {
-                    LineOut += "<td>" + ColNames[1] + "</td>";
-                  }
-                  if (ColNames[2] !== "Admission Number")
-                  {
-                    HasErrorBool = true;
-                    if (!LineBool)
-                    {
-                      LineBool = true;
-                    }
-                    LineOut += "<td class='text-danger'>" + ColNames[2] + "</td>";
-                  }
-                  else
-                  {
-                    LineOut += "<td>" + ColNames[2] + "</td>";
-                  }
-                  if (ColNames[3] !== "Year")
-                  {
-                    HasErrorBool = true;
-                    if (!LineBool)
-                    {
-                      LineBool = true;
-                    }
-                    LineOut += "<td class='text-danger'>" + ColNames[3] + "</td>";
-                  }
-                  else
-                  {
-                    LineOut += "<td>" + ColNames[3] + "</td>";
-                  }
-                  if (ColNames[4] !== "Email address (optional)") // cant string match end of line
-                  {
-                    HasErrorBool = true;
-                    if (!LineBool)
-                    {
-                      LineBool = true;
-                    }
-                    LineOut += "<td class='text-danger'>" + ColNames[4] + "</td>";
-                  }
-                  else
-                  {
-                    LineOut += "<td>" + ColNames[4] + "</td>";
-                  }
-                  //  if (LineBool) {
-                  Output += "<tr><td> 1 </td>" + LineOut + "</tr>";
-                  //  }
-                }
-                else
-                { // else of header process
-                  // for all non-header lines
-                  if ((j + 1 == LineCount) && (ColNames[0].length < 1))
-                  {
-                    // theres often a phantom newline at the end of the file
-                  }
-                  else
-                  {
-                    LineOut = "";
-                    LineBool = false;
-                    if (pattern40.test(ColNames[0]))
+                    else
                     {
                       LineOut += "<td>" + ColNames[0] + "</td>";
-                      //Output += "Line " + (j+1) + " - column 1: " + ColNames[0] + " passes<br>";
+                    }
+                    if (ColNames[1] !== "First name")
+                    {
+                      HasErrorBool = true;
+                      if (!LineBool)
+                      {
+                        LineBool = true;
+                      }
+                      LineOut += "<td class='text-danger'>" + ColNames[1] + "</td>";
                     }
                     else
-                    {
-                      TestCatch = Testfunc(ColNames[0], 1, 40);
-                      LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
-                      LineBool = true;
-                      //Output += "Line " + (j+1) + " - column 1: " + TestCatch + "<br>";
-                      HasErrorBool = true;
-                    }
-                    if (pattern25.test(ColNames[1]))
                     {
                       LineOut += "<td>" + ColNames[1] + "</td>";
-                      //Output += "Line " + (j+1) + " - column 2: "  + ColNames[1] + " passes<br>";
                     }
-                    else
+                    if (ColNames[2] !== "Admission Number")
                     {
-                      TestCatch = Testfunc(ColNames[1], 1, 25);
-                      LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
-                      LineBool = true;
-                      //Output += "Line " + (j+1) + " - column 2: " + TestCatch + "<br>";
                       HasErrorBool = true;
-                    }
-                    if (pattern50.test(ColNames[2]))
-                    {
-                      // see if its already in the hastable
-                      if (Numhash[ColNames[2]])
+                      if (!LineBool)
                       {
-                        LineOut += "<td class='text-danger'>Duplicate Admin Number:" + ColNames[2] + "</td>";
                         LineBool = true;
-                        HasErrorBool = true;
-                        // if so thats an error
                       }
-                      else
-                      {
-                        // if not put it in
-                        Numhash[ColNames[2]] = true;
-                        LineOut += "<td>" + ColNames[2] + "</td>";
-                      }
-                      //Output += "Line " + (j+1) + " - column 3: "  + ColNames[2] + " passes<br>";
+                      LineOut += "<td class='text-danger'>" + ColNames[2] + "</td>";
                     }
                     else
                     {
-                      TestCatch = Testfunc(ColNames[2], 1, 50);
-                      LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
-                      LineBool = true;
-                      //Output += "Line " + (j+1) + " - column 3: " + TestCatch +"<br>";
-                      HasErrorBool = true;
+                      LineOut += "<td>" + ColNames[2] + "</td>";
                     }
-                    if (pattern75.test(ColNames[3]))
+                    if (ColNames[3] !== "Year")
+                    {
+                      HasErrorBool = true;
+                      if (!LineBool)
+                      {
+                        LineBool = true;
+                      }
+                      LineOut += "<td class='text-danger'>" + ColNames[3] + "</td>";
+                    }
+                    else
                     {
                       LineOut += "<td>" + ColNames[3] + "</td>";
-                      //Output += "Line " + (j+1) + " - column 4: "  + ColNames[3] + " passes<br>";
+                    }
+                    if (ColNames[4] !== "Email address (optional)") // cant string match end of line
+                    {
+                      HasErrorBool = true;
+                      if (!LineBool)
+                      {
+                        LineBool = true;
+                      }
+                      LineOut += "<td class='text-danger'>" + ColNames[4] + "</td>";
                     }
                     else
                     {
-                      TestCatch = Testfunc(ColNames[3], 1, 75);
-                      LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
-                      LineBool = true;
-                      //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
-                      HasErrorBool = true;
+                      LineOut += "<td>" + ColNames[4] + "</td>";
                     }
-                    if (patternEmail.test(ColNames[4]))
+                    //  if (LineBool) {
+                    Output += "<tr><td> 1 </td>" + LineOut + "</tr>";
+                    //  }
+                  }
+                  else
+                  { // else of header process
+                    // for all non-header lines
+                    if ((j + 1 == LineCount) && (ColNames[0].length < 1))
                     {
-                      if (Emailhash[ColNames[4]])
+                      // theres often a phantom newline at the end of the file
+                    }
+                    else
+                    {
+                      LineOut = "";
+                      LineBool = false;
+                      if (pattern40.test(ColNames[0]))
                       {
-                        LineOut += "<td class='text-danger'>Duplicate Email:" + ColNames[4] + "</td>";
-                        LineBool = true;
-                        HasErrorBool = true;
-                        // if so thats an error
+                        LineOut += "<td>" + ColNames[0] + "</td>";
+                        //Output += "Line " + (j+1) + " - column 1: " + ColNames[0] + " passes<br>";
                       }
                       else
                       {
-                        // if not put it in
-                        Emailhash[ColNames[4]] = true;
-                            LineOut += "<td>" + ColNames[4] + "</td>";
+                        TestCatch = Testfunc(ColNames[0], 1, 40);
+                        LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
+                        LineBool = true;
+                        //Output += "Line " + (j+1) + " - column 1: " + TestCatch + "<br>";
+                        HasErrorBool = true;
                       }
-                     //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
-                    }
-                    else
-                    {
-                      if(!ColNames[4])
+                      if (pattern25.test(ColNames[1]))
                       {
-                        LineOut += "<td> - </td>";
-                      } else {
-                      LineOut += "<td class='text-danger'>" + ColNames[4] + " is not a valid email address</td>";
-                      LineBool = true;
-                      //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
-                      HasErrorBool = true;
+                        LineOut += "<td>" + ColNames[1] + "</td>";
+                        //Output += "Line " + (j+1) + " - column 2: "  + ColNames[1] + " passes<br>";
                       }
+                      else
+                      {
+                        TestCatch = Testfunc(ColNames[1], 1, 25);
+                        LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
+                        LineBool = true;
+                        //Output += "Line " + (j+1) + " - column 2: " + TestCatch + "<br>";
+                        HasErrorBool = true;
+                      }
+                      if (pattern50.test(ColNames[2]))
+                      {
+                        // see if its already in the hastable
+                        if (Numhash[ColNames[2]])
+                        {
+                          LineOut += "<td class='text-danger'>Duplicate Admin Number:" + ColNames[2] + "</td>";
+                          LineBool = true;
+                          HasErrorBool = true;
+                          // if so thats an error
+                        }
+                        else
+                        {
+                          // if not put it in
+                          Numhash[ColNames[2]] = true;
+                          LineOut += "<td>" + ColNames[2] + "</td>";
+                        }
+                        //Output += "Line " + (j+1) + " - column 3: "  + ColNames[2] + " passes<br>";
+                      }
+                      else
+                      {
+                        TestCatch = Testfunc(ColNames[2], 1, 50);
+                        LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
+                        LineBool = true;
+                        //Output += "Line " + (j+1) + " - column 3: " + TestCatch +"<br>";
+                        HasErrorBool = true;
+                      }
+                      if (pattern75.test(ColNames[3]))
+                      {
+                        LineOut += "<td>" + ColNames[3] + "</td>";
+                        //Output += "Line " + (j+1) + " - column 4: "  + ColNames[3] + " passes<br>";
+                      }
+                      else
+                      {
+                        TestCatch = Testfunc(ColNames[3], 1, 75);
+                        LineOut += "<td class='text-danger'>" + TestCatch + "</td>";
+                        LineBool = true;
+                        //Output += "Line " + (j+1) + " - column 4: " + TestCatch +"<br>";
+                        HasErrorBool = true;
+                      }
+                      if (ColNames[4] == ColNames[4].trim())
+                      {
+                        if (patternEmail.test(ColNames[4]))
+                        {
+                          if (Emailhash[ColNames[4]])
+                          {
+                            LineOut += "<td class='text-danger'>Duplicate Email:" + ColNames[4] + "</td>";
+                            LineBool = true;
+                            HasErrorBool = true;
+                            // if so thats an error
+                          }
+                          else
+                          {
+                            // if not put it in
+                            Emailhash[ColNames[4]] = true;
+                                LineOut += "<td>" + ColNames[4] + "</td>";
+                          }
+                         //Output += "Line " + (j+1) + " - column 5: "  + ColNames[4] + " passes<br>";
+                        }
+                        else
+                        {
+                          if(!ColNames[4])
+                          {
+                            LineOut += "<td> - </td>";
+                          } else {
+                          LineOut += "<td class='text-danger'>" + ColNames[4] + " is not a valid email address</td>";
+                          LineBool = true;
+                          //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
+                          HasErrorBool = true;
+                          }
+                        }
+                      } else {
+                        LineOut += "<td class='text-danger'>" + ColNames[4] + "has spaces around it that need to be removed</td>";
+                        LineBool = true;
+                        //Output += "Line " + (j+1) + " - column 5: " + TestCatch +"<br>";
+                        HasErrorBool = true;
+                      }
+                      //  if (LineBool) {
+                      Output += "<tr><td>" + (j + 1) + "</td>" + LineOut + "</tr>";
+                      //  }
                     }
-                    //  if (LineBool) {
-                    Output += "<tr><td>" + (j + 1) + "</td>" + LineOut + "</tr>";
-                    //  }
-                  }
-                } // end of header process (lines = 0)
-              } // end of loop thorugh lines
+                  } // end of header process (lines = 0)
+                } // end of loop thorugh lines
+              } else { // check file not > 400 lines
+                    Output += "<p>Your file has more than 400 lines (including the header). Please divide it into smaller files of 400 lines or less. </p>";
+                    HasErrorBool = true;
+              } // end of line count check
               //  if (ErrorBool) { // if error
               //***Success response***
               //$("#drop-zone").remove();
